@@ -1,0 +1,275 @@
+\chapter{Honeywell Linux Assessment Documentation}
+\hypertarget{index}{}\label{index}\index{Honeywell Linux Assessment Documentation@{Honeywell Linux Assessment Documentation}}
+\hypertarget{index_intro_sec}{}\doxysection{\texorpdfstring{Introduction}{Introduction}}\label{index_intro_sec}
+The test consisted of creating an application for a temperature sensor connected to an embedded Linux development board.
+
+{\bfseries{DISCLAIMER}}\+:~\newline
+ As a candidate for Senior Advanced Embedded Engineer position I decided to carry~\newline
+ this project to the physical implementation, meaning that all the hardware and~\newline
+ software cited in here was tested in the loop by me (Mauricio Gutierrez).\hypertarget{index_yocto_poky}{}\doxysubsection{\texorpdfstring{Yocto with Poky for Raspberry Pi}{Yocto with Poky for Raspberry Pi}}\label{index_yocto_poky}
+Yocto is an open-\/source project that allows the creation of custom Linux systems for embedded devices. Poky is the reference build system in Yocto, providing the tools and metadata necessary to create Linux images. Using Yocto with Poky on a Raspberry Pi allows for the creation of a highly customized and optimized operating system for specific applications.\hypertarget{index_aht10_sensor}{}\doxysubsection{\texorpdfstring{AHT10 Temperature Sensor}{AHT10 Temperature Sensor}}\label{index_aht10_sensor}
+The AHT10 is a high-\/precision temperature and humidity sensor widely used in embedded applications. It offers a simple I2C interface for communication with microcontrollers and embedded systems. This project uses the AHT10 to measure ambient temperature and send this data over a TCP/\+IP network.\hypertarget{index_server_client}{}\doxysubsection{\texorpdfstring{Client-\/\+Server Architectures in Embedded Systems}{Client-\/\+Server Architectures in Embedded Systems}}\label{index_server_client}
+Client-\/server architectures are fundamental in data communication in embedded systems. In this project, an embedded server on the Raspberry Pi communicates with multiple clients to provide real-\/time temperature data. The server manages TCP connections and uses threads to handle client requests and data acquisition from the AHT10 sensor.
+
+\DoxyHorRuler{0}
+ \hypertarget{index_hw_setup}{}\doxysection{\texorpdfstring{Hardware setup}{Hardware setup}}\label{index_hw_setup}
+\hypertarget{index_step1}{}\doxysubsection{\texorpdfstring{Step 1\+: I2C Connections}{Step 1\+: I2C Connections}}\label{index_step1}
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.500000\textwidth]{hw_setup.jpg}}
+\end{DoxyImageNoCaption}
+ AHT10 temperature sensor has a I2C interface for communication with only 4 pins\+:
+\begin{DoxyItemize}
+\item VIN (5v Power)
+\item GND (Ground)
+\item SCL (GPIO 3 Clock)
+\item SDA (GPIO 2 Data)
+\end{DoxyItemize}
+
+Which can be directly connected to IC2 pins on Raspberry Pi 3B+ (model used for this project)\+:  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.500000\textwidth]{rp3b_pinout.png}}
+\end{DoxyImageNoCaption}
+
+
+\DoxyHorRuler{0}
+\hypertarget{index_sw_setup}{}\doxysection{\texorpdfstring{Software setup}{Software setup}}\label{index_sw_setup}
+We decided to use Poky {\itshape meta-\/raspberrypi layer} with Yocto (dunfell release) to build our custom image for Raspberry Pi 3 B+ (BCM2837 processor).
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{bitbake_building.png}}
+\end{DoxyImageNoCaption}
+
+
+Adding i2d\+\_\+dev to /etc/modules yields\+:
+
+\# modprobe -\/v -\/n -\/D i2c\+\_\+dev ~\newline
+ \# insmod /lib/modules/5.4.\+72-\/v8/drivers/i2c/i2c-\/dev.\+ko
+
+Editing the file poky/build/conf/local.\+conf file to configure enabling I2C during boot.  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{adding_i2c_module.png}}
+\end{DoxyImageNoCaption}
+
+
+Rebuiding Yocto\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{rebuilding_image_1.png}}
+\end{DoxyImageNoCaption}
+
+
+Output found at ~\newline
+ /build/tmp/deploy/images/raspberrypi3-\/64/bootfiles/config.txt
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{boot_config_txt.png}}
+\end{DoxyImageNoCaption}
+
+
+While I2C device is now present and correctly loaded at /dev/, we want the development tools to start programming by adding the following line in the Yocto configuration file.
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{add_dev_tools_build_essential.png}}
+\end{DoxyImageNoCaption}
+ ~\newline
+  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{add_dev_tools_build_essential2.png}}
+\end{DoxyImageNoCaption}
+
+
+We can see that now i2ctransfer is working by executing\+:
+
+Handshaking\+:
+
+
+\begin{DoxyItemize}
+\item i2ctransfer -\/y 1 w3@0x38 0x\+E1 0x33 0x00 r6
+\end{DoxyItemize}
+
+Data request\+:
+
+
+\begin{DoxyItemize}
+\item i2ctransfer -\/y 1 w3@0x38 0xac 0x33 0x00 r6
+\end{DoxyItemize}
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{hal_call_i2c_kernel_module.png}}
+\end{DoxyImageNoCaption}
+
+
+Conditioning of the signal according to AHT10 datasheet\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{send_command_aht10.png}}
+\end{DoxyImageNoCaption}
+  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{temp_conv_aht10.png}}
+\end{DoxyImageNoCaption}
+
+
+After making threads for
+\begin{DoxyItemize}
+\item 1) data gathering,
+\item 2) data processing and
+\item 3) service requesting,
+\end{DoxyItemize}
+
+this is the console output\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{tcp_server_working_1.png}}
+\end{DoxyImageNoCaption}
+
+
+On the left side of the console, we can see the silent server working at port 5000. On the right we can see the request to the server by using telnet as client. We double checked the correct behavior by using another external client application called Hercules\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{tcp_server_working_2.png}}
+\end{DoxyImageNoCaption}
+
+
+For watchdog purposes, we need to add the package in Yocto and rebuild the image again with Systemd enbaled\+:
+
+
+\begin{DoxyItemize}
+\item DISTRO\+\_\+\+FEATURES\+:append = "{} systemd"{}
+\item DISTRO\+\_\+\+FEATURES\+\_\+\+BACKFILL\+\_\+\+CONSIDERED += "{}sysvinit"{}
+\item VIRTUAL-\/\+RUNTIME\+\_\+init\+\_\+manager = "{}systemd"{}
+\item VIRTUAL-\/\+RUNTIME\+\_\+initscripts = "{}systemd-\/compat-\/units"{}
+\item INIT\+\_\+\+MANAGER = "{}systemd"{}
+\end{DoxyItemize}
+
+A Systemd service was designed to automatically start the application after the user level (3) is reached. As per project requirements (5, 6), the application will be restarted after 20 seconds if it crashed, killed or closed, as shown below\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{systemd_service_setup_autostart.png}}
+\end{DoxyImageNoCaption}
+ \+\_\+  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{systemd_service_conf.png}}
+\end{DoxyImageNoCaption}
+
+
+After reboot we can see the service is active and correctly working\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{systemd_service_status_running.png}}
+\end{DoxyImageNoCaption}
+  
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{check_hercules_systemd.png}}
+\end{DoxyImageNoCaption}
+
+
+Finally, we configure the watchdog to monitor the "{}real-\/time"{} system. If the board load goes above the \textquotesingle{}24\textquotesingle{} parameter the system will automatically reboot.
+
+
+\begin{DoxyItemize}
+\item echo \textquotesingle{}dtparam=watchdog=on\textquotesingle{} \texorpdfstring{$>$}{>}\texorpdfstring{$>$}{>} /boot/config.txt
+\end{DoxyItemize}
+
+If the system doesn\textquotesingle{}t respond during over 15 seconds, the hardware watchdog signal will reboot the OS.
+
+
+\begin{DoxyItemize}
+\item vim /etc/watchdog.conf
+\end{DoxyItemize}
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{wd_setup.png}}
+\end{DoxyImageNoCaption}
+
+
+
+\begin{DoxyItemize}
+\item systemctl enable watchdog
+\end{DoxyItemize}
+
+After correctly configuring the board\textquotesingle{}s watchdog we can enable the WD service via Systemd, as showed below\+:
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{wd_activation.png}}
+\end{DoxyImageNoCaption}
+
+
+We ran the famous fork bomb to test it\+:
+
+
+\begin{DoxyItemize}
+\item bash -\/c \textquotesingle{}\+:()\{ \+:\texorpdfstring{$\vert$}{|}\+:\& \};\+:\textquotesingle{}
+\end{DoxyItemize}
+
+After the fork bomb exploited the system frozen during 15 seconds proximately and the automatically restarted.
+
+ 
+\begin{DoxyImageNoCaption}
+  \mbox{\includegraphics[width=0.750000\textwidth]{fork_bomb.png}}
+\end{DoxyImageNoCaption}
+
+
+This covers the 6th and last requirement from the Honeywell Linux Assessment.
+
+\DoxyHorRuler{0}
+\hypertarget{index_sw_compile}{}\doxysection{\texorpdfstring{Software compilation method}{Software compilation method}}\label{index_sw_compile}
+For this project (assessment) we designed, developed and built 2 applications\+:
+
+
+\begin{DoxyItemize}
+\item A HAL application that is able to call from user space the I2C kernel functions, and
+\item A TCP multithreading server that gets sensor data, transform data to a lecture and attend incoming requests for temperature service subscribers.
+\end{DoxyItemize}
+
+Since Raspberry Pi 3B+ board has enough computational resources, we decided to do not crosscompile but compile the sources directly in the board.
+
+In this regard, the command to compile is\+:
+
+for HAL application\+:
+
+
+\begin{DoxyItemize}
+\item {\itshape  gcc \doxylink{hw__aht10__get__temp_8c}{hw\+\_\+aht10\+\_\+get\+\_\+temp.\+c} -\/ o hw\+\_\+aht10\+\_\+get\+\_\+temp }
+\end{DoxyItemize}
+
+for TCP server application\+:
+
+
+\begin{DoxyItemize}
+\item {\itshape  gcc -\/pthread \doxylink{hw__aht10__temperature__server_8c}{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c} \doxylink{hw__aht10__func_8c}{hw\+\_\+aht10\+\_\+func.\+c} -\/o hw\+\_\+aht10\+\_\+temperature\+\_\+server }
+\end{DoxyItemize}\hypertarget{index_run_app}{}\doxysubsection{\texorpdfstring{Running the app}{Running the app}}\label{index_run_app}
+Both applications can run with parameter, however for the HAL application the parameters are madatory\+:
+
+
+\begin{DoxyItemize}
+\item Usage\+: ./hw\+\_\+aht10\+\_\+get\+\_\+temp device\+\_\+name device\+\_\+address
+\item e.\+g.\+:~~~~ ./hw\+\_\+aht10\+\_\+get\+\_\+temp /dev/i2c-\/1 0x38
+\end{DoxyItemize}
+
+This allows the possibility the change/update the sensor without changing the source code.
+
+On the other hand, the TCP server application can run with or without parameters.
+
+
+\begin{DoxyItemize}
+\item Usage\+:~~~~~~~~~~~ ./hw\+\_\+aht10\+\_\+temperature\+\_\+server device\+\_\+name device\+\_\+address port
+\item e.\+g. (default) ./hw\+\_\+aht10\+\_\+temperature\+\_\+server /dev/i2c-\/1 0x38 5000
+\end{DoxyItemize}
+
+This means that the default values are the I2C descriptor 1, the default addres for AHT10 sensor and TCP Port 5000.
+
+NOTE\+: As we previously showed, is not necessary to manually run the server since it is automatically started and monitored via software (systemd service) and hardware (watchdog). 

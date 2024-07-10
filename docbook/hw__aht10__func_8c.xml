@@ -1,0 +1,237 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__aht10__func_8c" xml:lang="en-US">
+<title>hw_aht10_func.c File Reference</title>
+<indexterm><primary>hw_aht10_func.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;unistd.h&gt;<?linebreak?>#include &lt;fcntl.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;string.h&gt;<?linebreak?>#include &lt;pthread.h&gt;<?linebreak?>#include &lt;arpa/inet.h&gt;<?linebreak?>#include &lt;sys/ioctl.h&gt;<?linebreak?>#include &lt;sys/socket.h&gt;<?linebreak?>#include &lt;linux/i2c-dev.h&gt;<?linebreak?>#include &quot;hw_aht10_func.h&quot;<?linebreak?></programlisting>Include dependency graph for hw_aht10_func.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc">validate_inputs</link> (int argc, char **argv)</para>
+</listitem>
+            <listitem><para>char * <link linkend="_hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5">get_data_from_sensor</link> (char *device_name, int dev_addr)</para>
+</listitem>
+            <listitem><para>float <link linkend="_hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505">compute_temperature_celsius</link> (char *data)</para>
+</listitem>
+            <listitem><para>int <link linkend="_hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418">start_listener</link> (unsigned short port)</para>
+</listitem>
+            <listitem><para>void * <link linkend="_hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99">read_sensor</link> (void *arg)</para>
+</listitem>
+            <listitem><para>void * <link linkend="_hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887">compute_temperature</link> (void *arg)</para>
+</listitem>
+            <listitem><para>void <link linkend="_hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6">send_message</link> (int client_socket)</para>
+</listitem>
+            <listitem><para>void * <link linkend="_hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd">connection_handler</link> (void *socket_desc)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>pthread_mutex_t <link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link></para>
+</listitem>
+            <listitem><para>pthread_cond_t <link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link></para>
+</listitem>
+            <listitem><para>int <link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link> = <link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2">e_gathering</link></para>
+</listitem>
+            <listitem><para>float <link linkend="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5">temperature</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887"/><section>
+    <title>compute_temperature()</title>
+<indexterm><primary>compute_temperature</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>compute_temperature</secondary></indexterm>
+<para><computeroutput>void * compute_temperature (void * arg)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00152">152</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505"/><section>
+    <title>compute_temperature_celsius()</title>
+<indexterm><primary>compute_temperature_celsius</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>compute_temperature_celsius</secondary></indexterm>
+<para><computeroutput>float compute_temperature_celsius (char * data)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00103">103</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd"/><section>
+    <title>connection_handler()</title>
+<indexterm><primary>connection_handler</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>connection_handler</secondary></indexterm>
+<para><computeroutput>void * connection_handler (void * socket_desc)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00175">175</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5"/><section>
+    <title>get_data_from_sensor()</title>
+<indexterm><primary>get_data_from_sensor</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>get_data_from_sensor</secondary></indexterm>
+<para><computeroutput>char * get_data_from_sensor (char * device_name, int dev_addr)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00041">41</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99"/><section>
+    <title>read_sensor()</title>
+<indexterm><primary>read_sensor</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>read_sensor</secondary></indexterm>
+<para><computeroutput>void * read_sensor (void * arg)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00136">136</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6"/><section>
+    <title>send_message()</title>
+<indexterm><primary>send_message</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>send_message</secondary></indexterm>
+<para><computeroutput>void send_message (int client_socket)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00168">168</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418"/><section>
+    <title>start_listener()</title>
+<indexterm><primary>start_listener</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>start_listener</secondary></indexterm>
+<para><computeroutput>int start_listener (unsigned short port)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00111">111</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc"/><section>
+    <title>validate_inputs()</title>
+<indexterm><primary>validate_inputs</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>validate_inputs</secondary></indexterm>
+<para><computeroutput>int validate_inputs (int argc, char ** argv)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00019">19</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a"/><section>
+    <title>cond</title>
+<indexterm><primary>cond</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>cond</secondary></indexterm>
+<para><computeroutput>pthread_cond_t cond</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00015">15</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805"/><section>
+    <title>data_ready</title>
+<indexterm><primary>data_ready</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>data_ready</secondary></indexterm>
+<para><computeroutput>int data_ready = <link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2">e_gathering</link></computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00016">16</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3"/><section>
+    <title>mutex</title>
+<indexterm><primary>mutex</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>mutex</secondary></indexterm>
+<para><computeroutput>pthread_mutex_t mutex</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00014">14</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+</section>
+<anchor xml:id="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5"/><section>
+    <title>temperature</title>
+<indexterm><primary>temperature</primary><secondary>hw_aht10_func.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_func.c</primary><secondary>temperature</secondary></indexterm>
+<para><computeroutput>float temperature</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8c_source_1l00017">17</link> of file <link linkend="_hw__aht10__func_8c_source">hw_aht10_func.c</link>.</para>
+</section>
+</section>
+</section>

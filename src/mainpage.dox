@@ -1,0 +1,204 @@
+/*! \mainpage Honeywell Linux Assessment Documentation
+ *
+ * \section intro_sec Introduction
+ *
+ * The test consisted of creating an application for a temperature sensor connected
+ * to an embedded Linux development board.
+ *
+ * <b>DISCLAIMER</b>:<br>
+ * As a candidate for Senior Advanced Embedded Engineer position I decided to carry<br>
+ * this project to the physical implementation, meaning that all the hardware and<br>
+ * software cited in here was tested in the loop by me (Mauricio Gutierrez).
+ *
+ * \subsection yocto_poky Yocto with Poky for Raspberry Pi
+ * Yocto is an open-source project that allows the creation of custom Linux systems for embedded devices. Poky is the reference build system in Yocto, providing the tools and metadata necessary to create Linux images. Using Yocto with Poky on a Raspberry Pi allows for the creation of a highly customized and optimized operating system for specific applications.
+ *
+ * \subsection aht10_sensor AHT10 Temperature Sensor
+ * The AHT10 is a high-precision temperature and humidity sensor widely used in embedded applications. It offers a simple I2C interface for communication with microcontrollers and embedded systems. This project uses the AHT10 to measure ambient temperature and send this data over a TCP/IP network.
+ *
+ * \subsection server_client Client-Server Architectures in Embedded Systems
+ * Client-server architectures are fundamental in data communication in embedded systems. In this project, an embedded server on the Raspberry Pi communicates with multiple clients to provide real-time temperature data. The server manages TCP connections and uses threads to handle client requests and data acquisition from the AHT10 sensor.
+ *
+ * <hr>
+ * \section hw_setup Hardware setup
+ *
+ * \subsection step1 Step 1: I2C Connections
+ *
+ * \image html hw_setup.jpg width=50%
+ * \image latex hw_setup.jpg width=50%
+ * AHT10 temperature sensor has a I2C interface for communication with only 4 pins:
+ *	+ VIN (5v Power)
+ *  + GND (Ground)
+ *  + SCL (GPIO 3 Clock)
+ *  + SDA (GPIO 2 Data)
+ * 
+ * Which can be directly connected to IC2 pins on Raspberry Pi 3B+ (model used for this project):
+ * \image html rp3b_pinout.png width=50%
+ * \image latex rp3b_pinout.png width=50% 
+ *
+ * <hr>
+ *
+ * \section sw_setup Software setup
+ * We decided to use Poky <em>meta-raspberrypi layer</em> with Yocto (dunfell release) to build our custom image for Raspberry Pi 3 B+ (BCM2837 processor).
+ *
+ * \image html bitbake_building.png width=75%
+ * \image latex bitbake_building.png width=75%
+ 
+	Adding i2d_dev to /etc/modules yields:
+
+	\# modprobe -v -n -D i2c_dev <br>
+	\# insmod /lib/modules/5.4.72-v8/drivers/i2c/i2c-dev.ko
+
+	Editing the file poky/build/conf/local.conf  file to configure enabling I2C during boot.
+	\image html adding_i2c_module.png width=75%
+	\image latex adding_i2c_module.png width=75%
+
+	Rebuiding Yocto:
+
+	\image html rebuilding_image_1.png width=75%
+	\image latex rebuilding_image_1.png width=75%
+	
+	Output found at <br>
+	/build/tmp/deploy/images/raspberrypi3-64/bootfiles/config.txt
+	
+	\image html boot_config_txt.png width=75%
+	\image latex boot_config_txt.png width=75%
+	
+	While I2C device is now present and correctly loaded at /dev/, we want the development tools to start programming by adding the following line in the Yocto configuration file.
+
+	\image html add_dev_tools_build_essential.png width=75%
+	\image latex add_dev_tools_build_essential.png width=75%
+	<br>
+	\image html add_dev_tools_build_essential2.png width=75%
+	\image latex add_dev_tools_build_essential2.png width=75%
+	
+	We can see that now i2ctransfer is working by executing:
+
+	Handshaking:
+
+	+ i2ctransfer -y 1 w3@0x38 0xE1 0x33 0x00 r6
+
+	Data request:
+
+	+ i2ctransfer -y 1 w3@0x38 0xac 0x33 0x00 r6
+
+	\image html hal_call_i2c_kernel_module.png width=75%
+	\image latex hal_call_i2c_kernel_module.png width=75%
+	
+	Conditioning of the signal according to AHT10 datasheet:
+	
+	\image html send_command_aht10.png width=75%
+	\image latex send_command_aht10.png width=75%
+	\image html temp_conv_aht10.png width=75%
+	\image latex temp_conv_aht10.png width=75%
+	
+	After making threads for 
+	+ 1) data gathering, 
+	+ 2) data processing and 
+	+ 3) service requesting,
+	
+	this is the console output:
+	
+	\image html tcp_server_working_1.png width=75%
+	\image latex tcp_server_working_1.png width=75%
+	
+	On the left side of the console, we can see the silent server working at port 5000. On the right we can see the request to the server by using telnet as client.
+	We double checked the correct behavior by using another external client application called Hercules:
+
+	\image html tcp_server_working_2.png width=75%
+	\image latex tcp_server_working_2.png width=75%
+	
+	For watchdog purposes, we need to add the package in Yocto and rebuild the image again with Systemd enbaled:
+
+	+ DISTRO_FEATURES:append = " systemd"
+	+ DISTRO_FEATURES_BACKFILL_CONSIDERED += "sysvinit"
+	+ VIRTUAL-RUNTIME_init_manager = "systemd"
+	+ VIRTUAL-RUNTIME_initscripts = "systemd-compat-units"
+	+ INIT_MANAGER = "systemd"
+	
+	A Systemd service was designed to automatically start the application after the user level (3) is reached.
+	As per project requirements (5, 6), the application will be restarted after 20 seconds if it crashed, killed or closed, as shown below:
+
+	\image html systemd_service_setup_autostart.png width=75%
+	\image latex systemd_service_setup_autostart.png width=75%
+	_
+	\image html systemd_service_conf.png width=75%
+	\image latex systemd_service_conf.png width=75%
+	
+	After reboot we can see the service is active and correctly working:
+	
+	\image html systemd_service_status_running.png width=75%
+	\image latex systemd_service_status_running.png width=75%
+	\image html check_hercules_systemd.png width=75%
+	\image latex check_hercules_systemd.png width=75%
+	
+	Finally, we configure the watchdog to monitor the "real-time" system.
+	If the board load goes above the '24' parameter the system will automatically reboot.
+
+	+ echo 'dtparam=watchdog=on' >> /boot/config.txt
+
+	If the system doesn't respond during over 15 seconds, the hardware watchdog signal will reboot the OS.
+
+	+ vim /etc/watchdog.conf
+
+	\image html wd_setup.png width=75%
+	\image latex wd_setup.png width=75%
+	
+	+ systemctl enable watchdog
+
+	After correctly configuring the board's watchdog we can enable the WD service via Systemd, as showed below:
+
+	\image html wd_activation.png width=75%
+	\image latex wd_activation.png width=75%
+	
+	We ran the famous fork bomb to test it:
+
+	+ bash -c ':(){ :|:& };:'
+
+	After the fork bomb exploited the system frozen during 15 seconds proximately and the automatically restarted.
+
+	\image html fork_bomb.png width=75%
+	\image latex fork_bomb.png width=75%
+	
+	This covers the 6th and last requirement from the Honeywell Linux Assessment.
+	
+	<hr>
+	
+	\section sw_compile Software compilation method
+	
+	For this project (assessment) we designed, developed and built 2 applications:
+	
+	+ A HAL application that is able to call from user space the I2C kernel functions, and
+	+ A TCP multithreading server that gets sensor data, transform data to a lecture and attend incoming requests for temperature service subscribers.
+	
+	Since Raspberry Pi 3B+ board has enough computational resources, we decided to do not crosscompile but compile the sources directly in the board.
+	
+	In this regard, the command to compile is:
+
+	for HAL application:
+	
+	+ <em> gcc hw_aht10_get_temp.c - o hw_aht10_get_temp </em>
+	
+	for TCP server application:
+	
+	+ <em> gcc -pthread hw_aht10_temperature_server.c hw_aht10_func.c -o hw_aht10_temperature_server </em>
+	
+	\subsection run_app Running the app
+	
+	Both applications can run with parameter, however for the HAL application the parameters are madatory:
+	
+	+ Usage: ./hw_aht10_get_temp device_name device_address
+	+  e.g.:&nbsp;&nbsp;&nbsp;&nbsp; ./hw_aht10_get_temp /dev/i2c-1 0x38
+	
+	This allows the possibility the change/update the sensor without changing the source code.
+	
+	On the other hand, the TCP server application can run with or without parameters.
+	
+	+ Usage:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ./hw_aht10_temperature_server device_name device_address port
+	+ e.g. (default) ./hw_aht10_temperature_server /dev/i2c-1 0x38 5000
+	
+	This means that the default values are the I2C descriptor 1, the default addres for AHT10 sensor and TCP Port 5000.
+	
+	NOTE: As we previously showed, is not necessary to manually run the server since it is automatically started and monitored via software (systemd service) and hardware (watchdog).
+	
+ */

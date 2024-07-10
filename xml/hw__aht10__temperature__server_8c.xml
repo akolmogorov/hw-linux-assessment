@@ -1,0 +1,239 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="hw__aht10__temperature__server_8c" kind="file" language="C++">
+    <compoundname>hw_aht10_temperature_server.c</compoundname>
+    <includes local="no">stdio.h</includes>
+    <includes local="no">stdlib.h</includes>
+    <includes local="no">pthread.h</includes>
+    <includes local="no">arpa/inet.h</includes>
+    <includes local="no">sys/ioctl.h</includes>
+    <includes local="no">sys/socket.h</includes>
+    <includes refid="hw__aht10__func_8h" local="yes">hw_aht10_func.h</includes>
+    <incdepgraph>
+      <node id="8">
+        <label>hw_aht10_func.h</label>
+        <link refid="hw__aht10__func_8h"/>
+      </node>
+      <node id="1">
+        <label>hw_aht10_temperature_server.c</label>
+        <link refid="hw__aht10__temperature__server_8c"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+        <childnode refid="4" relation="include">
+        </childnode>
+        <childnode refid="5" relation="include">
+        </childnode>
+        <childnode refid="6" relation="include">
+        </childnode>
+        <childnode refid="7" relation="include">
+        </childnode>
+        <childnode refid="8" relation="include">
+        </childnode>
+      </node>
+      <node id="5">
+        <label>arpa/inet.h</label>
+      </node>
+      <node id="4">
+        <label>pthread.h</label>
+      </node>
+      <node id="2">
+        <label>stdio.h</label>
+      </node>
+      <node id="3">
+        <label>stdlib.h</label>
+      </node>
+      <node id="6">
+        <label>sys/ioctl.h</label>
+      </node>
+      <node id="7">
+        <label>sys/socket.h</label>
+      </node>
+    </incdepgraph>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" prot="public" static="no" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t mutex</definition>
+        <argsstring></argsstring>
+        <name>mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mutex for thread synchronization (prevents deadlocks) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_temperature_server.c" line="10" column="17" bodyfile="hw_aht10_temperature_server.c" bodystart="10" bodyend="-1"/>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" prot="public" static="no" mutable="no">
+        <type>pthread_cond_t</type>
+        <definition>pthread_cond_t cond</definition>
+        <argsstring></argsstring>
+        <name>cond</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Condition variable for thread synchronization (prevents race conditions) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_temperature_server.c" line="11" column="16" bodyfile="hw_aht10_temperature_server.c" bodystart="11" bodyend="-1"/>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" prot="public" static="no" mutable="no">
+        <type><ref refid="struct_sensor_info" kindref="compound">SensorInfo</ref></type>
+        <definition>SensorInfo sensor_info</definition>
+        <argsstring></argsstring>
+        <name>sensor_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sensor information structure </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_temperature_server.c" line="12" column="12" bodyfile="hw_aht10_temperature_server.c" bodystart="12" bodyend="-1"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int main</definition>
+        <argsstring>(int argc, char **argv)</argsstring>
+        <name>main</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+<para>In this section the TCP server binds connections with clients using threads for:<linebreak/>
+. </para>
+        </briefdescription>
+        <detaileddescription>
+<para><itemizedlist>
+<listitem><para>1) Getting data from AHT10 sensor<linebreak/>
+</para>
+</listitem><listitem><para>2) Computing the current temperature, and <linebreak/>
+</para>
+</listitem><listitem><para>3) Attending new temperature requests via TCP.</para>
+</listitem></itemizedlist>
+</para>
+<para><parameterlist kind="param"><parameteritem>
+<parameternamelist>
+<parametername>argc</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument count </para>
+</parameterdescription>
+</parameteritem>
+<parameteritem>
+<parameternamelist>
+<parametername>argv</parametername>
+</parameternamelist>
+<parameterdescription>
+<para>Argument vector </para>
+</parameterdescription>
+</parameteritem>
+</parameterlist>
+<simplesect kind="return"><para>Exit status </para>
+</simplesect>
+</para>
+        </detaileddescription>
+        <inbodydescription>
+<para>TCP port is 5000 by default</para>
+<para>Default values for I2C hardware:<itemizedlist>
+<listitem><para>The device name by default is the file descriptor we found at /dev/i2c-1 and,</para>
+</listitem><listitem><para>The device address for the AHT10 sensor is 0x38.<linebreak/>
+<linebreak/>
+</para>
+</listitem></itemizedlist>
+</para>
+<para>NOTE: These values can be modified according to the connected sensor and the board when executing the program via the parameter <emphasis>argv</emphasis>.</para>
+<para>Main loop:<itemizedlist>
+<listitem><para>Once a client connection is accepted, three threads are created as mentioned above including the mutex and cond sections for <bold>avoiding race conditions and/or deadlocks</bold>.</para>
+</listitem></itemizedlist>
+</para>
+        </inbodydescription>
+        <location file="hw_aht10_temperature_server.c" line="26" column="5" bodyfile="hw_aht10_temperature_server.c" bodystart="26" bodyend="80"/>
+        <references refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</references>
+        <references refid="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" compoundref="hw__aht10__temperature__server_8c" startline="11">cond</references>
+        <references refid="hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd" compoundref="hw__aht10__func_8c" startline="175" endline="189">connection_handler</references>
+        <references refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" compoundref="hw__aht10__func_8h" startline="8">SensorInfo::dev_address</references>
+        <references refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" compoundref="hw__aht10__func_8h" startline="7">SensorInfo::dev_name</references>
+        <references refid="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" compoundref="hw__aht10__temperature__server_8c" startline="10">mutex</references>
+        <references refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</references>
+        <references refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" compoundref="hw__aht10__temperature__server_8c" startline="12">sensor_info</references>
+        <references refid="hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418" compoundref="hw__aht10__func_8c" startline="111" endline="134">start_listener</references>
+        <references refid="hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc" compoundref="hw__aht10__func_8c" startline="19" endline="39">validate_inputs</references>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdio.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;stdlib.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="4"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;pthread.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;arpa/inet.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="6"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/ioctl.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="7"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&lt;sys/socket.h&gt;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="8"><highlight class="normal"></highlight><highlight class="preprocessor">#include<sp/>&quot;<ref refid="hw__aht10__func_8h" kindref="compound">hw_aht10_func.h</ref>&quot;</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="9"><highlight class="normal"></highlight></codeline>
+<codeline lineno="10" refid="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" refkind="member"><highlight class="normal">pthread_mutex_t<sp/><ref refid="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" kindref="member">mutex</ref>;<sp/></highlight></codeline>
+<codeline lineno="11" refid="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" refkind="member"><highlight class="normal">pthread_cond_t<sp/><ref refid="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" kindref="member">cond</ref>;<sp/></highlight></codeline>
+<codeline lineno="12" refid="hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f" refkind="member"><highlight class="normal"><ref refid="struct_sensor_info" kindref="compound">SensorInfo</ref><sp/><ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>;<sp/></highlight></codeline>
+<codeline lineno="26" refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" refkind="member"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" kindref="member">main</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>argc,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**argv)<sp/>{</highlight></codeline>
+<codeline lineno="27"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/>socket_desc,<sp/>client_sock;</highlight></codeline>
+<codeline lineno="29"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal"><sp/>server_port<sp/>=<sp/>5000;</highlight></codeline>
+<codeline lineno="30"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">sockaddr_in<sp/>client_addr;</highlight></codeline>
+<codeline lineno="31"><highlight class="normal"><sp/><sp/><sp/><sp/>socklen_t<sp/>client_len;</highlight></codeline>
+<codeline lineno="32"><highlight class="normal"></highlight></codeline>
+<codeline lineno="41"><highlight class="normal"><sp/><sp/><sp/><sp/>sprintf(<ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>.<ref refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" kindref="member">dev_name</ref>,</highlight><highlight class="stringliteral">&quot;/dev/i2c-1&quot;</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="42"><highlight class="normal"><sp/><sp/><sp/><sp/><ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>.<ref refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" kindref="member">dev_address</ref><sp/>=<sp/>0x38;</highlight></codeline>
+<codeline lineno="43"><highlight class="normal"></highlight></codeline>
+<codeline lineno="44"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>(<ref refid="hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc" kindref="member">validate_inputs</ref>(argc,<sp/>argv)<sp/>==<sp/>1)<sp/>{</highlight></codeline>
+<codeline lineno="45"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>sprintf(<ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>.<ref refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" kindref="member">dev_name</ref>,</highlight><highlight class="stringliteral">&quot;%s&quot;</highlight><highlight class="normal">,<sp/>argv[1]);</highlight></codeline>
+<codeline lineno="46"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>.<ref refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" kindref="member">dev_address</ref><sp/>=<sp/>(int)strtol(argv[2],<sp/>NULL,<sp/>16);</highlight></codeline>
+<codeline lineno="47"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>server_port<sp/>=<sp/>(int)strtol(argv[3],<sp/>NULL,<sp/>10);</highlight></codeline>
+<codeline lineno="48"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="49"><highlight class="normal"></highlight></codeline>
+<codeline lineno="50"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">if</highlight><highlight class="normal"><sp/>((socket_desc<sp/>=<sp/><ref refid="hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418" kindref="member">start_listener</ref>(server_port))<sp/>&lt;<sp/>0)<sp/>{</highlight></codeline>
+<codeline lineno="51"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>printf(</highlight><highlight class="stringliteral">&quot;Unable<sp/>to<sp/>open<sp/>socket<sp/>at<sp/>%d&quot;</highlight><highlight class="normal">,<sp/>server_port);</highlight></codeline>
+<codeline lineno="52"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>exit(-1);</highlight></codeline>
+<codeline lineno="53"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="60"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">while</highlight><highlight class="normal"><sp/>((client_sock<sp/>=<sp/>accept(socket_desc,</highlight></codeline>
+<codeline lineno="61"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(</highlight><highlight class="keyword">struct</highlight><highlight class="normal"><sp/>sockaddr<sp/>*)&amp;client_addr,</highlight></codeline>
+<codeline lineno="62"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>(socklen_t*)&amp;client_len)))<sp/>{</highlight></codeline>
+<codeline lineno="63"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_t<sp/>thread1,<sp/>thread2,<sp/>thread3;</highlight></codeline>
+<codeline lineno="64"><highlight class="normal"></highlight></codeline>
+<codeline lineno="65"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_mutex_init(&amp;<ref refid="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" kindref="member">mutex</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="66"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_cond_init(&amp;<ref refid="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" kindref="member">cond</ref>,<sp/>NULL);</highlight></codeline>
+<codeline lineno="67"><highlight class="normal"></highlight></codeline>
+<codeline lineno="68"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_create(&amp;thread1,<sp/>NULL,<sp/><ref refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" kindref="member">read_sensor</ref>,<sp/>&amp;<ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>);</highlight></codeline>
+<codeline lineno="69"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_create(&amp;thread2,<sp/>NULL,<sp/><ref refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" kindref="member">compute_temperature</ref>,<sp/>&amp;<ref refid="hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>);</highlight></codeline>
+<codeline lineno="70"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_create(&amp;thread3,<sp/>NULL,<sp/><ref refid="hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd" kindref="member">connection_handler</ref>,<sp/>&amp;client_sock);</highlight></codeline>
+<codeline lineno="71"><highlight class="normal"></highlight></codeline>
+<codeline lineno="72"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_join(thread1,<sp/>NULL);</highlight></codeline>
+<codeline lineno="73"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_join(thread2,<sp/>NULL);</highlight></codeline>
+<codeline lineno="74"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_join(thread3,<sp/>NULL);</highlight></codeline>
+<codeline lineno="75"><highlight class="normal"></highlight></codeline>
+<codeline lineno="76"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_mutex_destroy(&amp;<ref refid="hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" kindref="member">mutex</ref>);</highlight></codeline>
+<codeline lineno="77"><highlight class="normal"><sp/><sp/><sp/><sp/><sp/><sp/><sp/><sp/>pthread_cond_destroy(&amp;<ref refid="hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a" kindref="member">cond</ref>);</highlight></codeline>
+<codeline lineno="78"><highlight class="normal"><sp/><sp/><sp/><sp/>}</highlight></codeline>
+<codeline lineno="79"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordflow">return</highlight><highlight class="normal"><sp/>0;</highlight></codeline>
+<codeline lineno="80"><highlight class="normal">}</highlight></codeline>
+    </programlisting>
+    <location file="hw_aht10_temperature_server.c"/>
+  </compounddef>
+</doxygen>

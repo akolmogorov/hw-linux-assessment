@@ -1,0 +1,253 @@
+\doxysection{hw\+\_\+aht10\+\_\+func.\+c File Reference}
+\hypertarget{hw__aht10__func_8c}{}\label{hw__aht10__func_8c}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include $<$linux/i2c-\/dev.\+h$>$}\newline
+{\ttfamily \#include "{}hw\+\_\+aht10\+\_\+func.\+h"{}}\newline
+Include dependency graph for hw\+\_\+aht10\+\_\+func.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__func_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc}{validate\+\_\+inputs}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\item 
+char \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5}{get\+\_\+data\+\_\+from\+\_\+sensor}} (char \texorpdfstring{$\ast$}{*}device\+\_\+name, int dev\+\_\+addr)
+\item 
+float \mbox{\hyperlink{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505}{compute\+\_\+temperature\+\_\+celsius}} (char \texorpdfstring{$\ast$}{*}data)
+\item 
+int \mbox{\hyperlink{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418}{start\+\_\+listener}} (unsigned short port)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99}{read\+\_\+sensor}} (void \texorpdfstring{$\ast$}{*}arg)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887}{compute\+\_\+temperature}} (void \texorpdfstring{$\ast$}{*}arg)
+\item 
+void \mbox{\hyperlink{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6}{send\+\_\+message}} (int client\+\_\+socket)
+\item 
+void \texorpdfstring{$\ast$}{*} \mbox{\hyperlink{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd}{connection\+\_\+handler}} (void \texorpdfstring{$\ast$}{*}socket\+\_\+desc)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}}
+\item 
+pthread\+\_\+cond\+\_\+t \mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}}
+\item 
+int \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\+\_\+ready}} = \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2}{e\+\_\+gathering}}
+\item 
+float \mbox{\hyperlink{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}{temperature}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!compute\_temperature@{compute\_temperature}}
+\index{compute\_temperature@{compute\_temperature}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{compute\_temperature()}{compute\_temperature()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887} 
+void \texorpdfstring{$\ast$}{*} compute\+\_\+temperature (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00152}{152}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=337pt]{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!compute\_temperature\_celsius@{compute\_temperature\_celsius}}
+\index{compute\_temperature\_celsius@{compute\_temperature\_celsius}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{compute\_temperature\_celsius()}{compute\_temperature\_celsius()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505} 
+float compute\+\_\+temperature\+\_\+celsius (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{data}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00103}{103}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!connection\_handler@{connection\_handler}}
+\index{connection\_handler@{connection\_handler}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{connection\_handler()}{connection\_handler()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd} 
+void \texorpdfstring{$\ast$}{*} connection\+\_\+handler (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{socket\+\_\+desc}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00175}{175}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=298pt]{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=253pt]{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!get\_data\_from\_sensor@{get\_data\_from\_sensor}}
+\index{get\_data\_from\_sensor@{get\_data\_from\_sensor}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{get\_data\_from\_sensor()}{get\_data\_from\_sensor()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5} 
+char \texorpdfstring{$\ast$}{*} get\+\_\+data\+\_\+from\+\_\+sensor (\begin{DoxyParamCaption}\item[{char \texorpdfstring{$\ast$}{*}}]{device\+\_\+name}{, }\item[{int}]{dev\+\_\+addr}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00041}{41}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!read\_sensor@{read\_sensor}}
+\index{read\_sensor@{read\_sensor}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{read\_sensor()}{read\_sensor()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99} 
+void \texorpdfstring{$\ast$}{*} read\+\_\+sensor (\begin{DoxyParamCaption}\item[{void \texorpdfstring{$\ast$}{*}}]{arg}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00136}{136}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=297pt]{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99_cgraph}
+\end{center}
+\end{figure}
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=222pt]{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!send\_message@{send\_message}}
+\index{send\_message@{send\_message}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{send\_message()}{send\_message()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6} 
+void send\+\_\+message (\begin{DoxyParamCaption}\item[{int}]{client\+\_\+socket}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00168}{168}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!start\_listener@{start\_listener}}
+\index{start\_listener@{start\_listener}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{start\_listener()}{start\_listener()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418} 
+int start\+\_\+listener (\begin{DoxyParamCaption}\item[{unsigned short}]{port}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00111}{111}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=225pt]{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418_icgraph}
+\end{center}
+\end{figure}
+\Hypertarget{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!validate\_inputs@{validate\_inputs}}
+\index{validate\_inputs@{validate\_inputs}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{validate\_inputs()}{validate\_inputs()}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc} 
+int validate\+\_\+inputs (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00019}{19}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=233pt]{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc_icgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!cond@{cond}}
+\index{cond@{cond}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{cond}{cond}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a} 
+pthread\+\_\+cond\+\_\+t cond}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00015}{15}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+\Hypertarget{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!data\_ready@{data\_ready}}
+\index{data\_ready@{data\_ready}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{data\_ready}{data\_ready}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805} 
+int data\+\_\+ready = \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2}{e\+\_\+gathering}}}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00016}{16}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+\Hypertarget{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!mutex@{mutex}}
+\index{mutex@{mutex}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{mutex}{mutex}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3} 
+pthread\+\_\+mutex\+\_\+t mutex}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00014}{14}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+
+\Hypertarget{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}\index{hw\_aht10\_func.c@{hw\_aht10\_func.c}!temperature@{temperature}}
+\index{temperature@{temperature}!hw\_aht10\_func.c@{hw\_aht10\_func.c}}
+\doxysubsubsection{\texorpdfstring{temperature}{temperature}}
+{\footnotesize\ttfamily \label{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5} 
+float temperature}
+
+
+
+Definition at line \mbox{\hyperlink{hw__aht10__func_8c_source_l00017}{17}} of file \mbox{\hyperlink{hw__aht10__func_8c_source}{hw\+\_\+aht10\+\_\+func.\+c}}.
+

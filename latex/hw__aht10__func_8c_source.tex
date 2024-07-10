@@ -1,0 +1,194 @@
+\doxysection{hw\+\_\+aht10\+\_\+func.\+c}
+\hypertarget{hw__aht10__func_8c_source}{}\label{hw__aht10__func_8c_source}\mbox{\hyperlink{hw__aht10__func_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <string.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ <sys/ioctl.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00009}00009\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00010}00010\ \textcolor{preprocessor}{\#include\ <linux/i2c-\/dev.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00011}00011\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{hw__aht10__func_8h}{hw\_aht10\_func.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00012}00012\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00013}00013\ \textcolor{comment}{/*\ Shared\ data\ and\ sync\ for\ threads*/}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00014}\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{00014}}\ pthread\_mutex\_t\ \mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00015}\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{00015}}\ pthread\_cond\_t\ \mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00016}\mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{00016}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ =\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2}{e\_gathering}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00017}\mbox{\hyperlink{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}{00017}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}{temperature}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00018}00018\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00019}\mbox{\hyperlink{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc}{00019}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc}{validate\_inputs}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordtype}{char}\ *cp,\ *program\_name\ =\ argv[0];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00021}00021\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00022}00022\ \ \ \ \ \textcolor{comment}{//\ skip\ over\ program\ name}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00023}00023\ \ \ \ \ -\/-\/argc;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00024}00024\ \ \ \ \ ++argv;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00026}00026\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 3)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00027}00027\ \ \ \ \ \ \ \ \ fprintf(stderr,\textcolor{stringliteral}{"{}\(\backslash\)n\ WARNING\ \%s:\ not\ (all)\ arguments\ specified"{}},\ program\_name);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00028}00028\ \ \ \ \ \ \ \ \ fprintf(stderr,\textcolor{stringliteral}{"{}\(\backslash\)n\ -\/-\/-\/-\/-\/-\/-\/>\ starting\ server\ with\ default\ value!\(\backslash\)n\(\backslash\)n"{}},\ program\_name);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00029}00029\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00030}00030\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00031}00031\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00032}00032\ \ \ \ \ cp\ =\ *argv;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (*cp\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ fprintf(stderr,\textcolor{stringliteral}{"{}\(\backslash\)n\ WARNING\ \%s:\ starting\ server\ with\ default\ values!\(\backslash\)n"{}},\ program\_name);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00038}00038\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00039}00039\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00040}00040\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00041}\mbox{\hyperlink{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5}{00041}}\ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5}{get\_data\_from\_sensor}}(\textcolor{keywordtype}{char}\ *device\_name,\ \textcolor{keywordtype}{int}\ dev\_addr)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00042}00042\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data[6]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00043}00043\ \ \ \ \ \textcolor{keywordtype}{int}\ i2c\_handler,\ length,\ comp\_temp;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordtype}{float}\ temperature\_celsius;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00045}00045\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00046}00046\ \ \ \ \ \textcolor{comment}{/*\ Get\ I2C\ handler\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00047}00047\ \ \ \ \ \textcolor{keywordflow}{if}\ ((i2c\_handler\ =\ open(device\_name,\ O\_RDWR))\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00048}00048\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00049}00049\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ getting\ the\ file\ descriptor\ from\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00050}00050\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ open\ I2C\ device"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00052}00052\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00053}00053\ \ \ \ \ \textcolor{comment}{/*\ Calling\ kernel\ layer\ from\ user\ space\ to\ connect\ with\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00054}00054\ \ \ \ \ \textcolor{keywordflow}{if}\ (ioctl(i2c\_handler,\ I2C\_SLAVE,\ dev\_addr)\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00055}00055\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Bus\ access\ failed\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ connect\ to\ low-\/level\ device\ I2C.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00058}00058\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00059}00059\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00060}00060\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00061}00061\ \ \ \ \ \textcolor{comment}{/*\ Handshake\ (initialization\ command)\ according\ AHT10\ sensor\ datasheet\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00062}00062\ \ \ \ \ data[0]\ =\ 0xE1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00063}00063\ \ \ \ \ data[1]\ =\ 0x08;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00064}00064\ \ \ \ \ data[2]\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00065}00065\ \ \ \ \ length\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00066}00066\ \ \ \ \ \textcolor{comment}{/*\ Send\ initialization\ command\ to\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00067}00067\ \ \ \ \ \textcolor{keywordflow}{if}\ (write(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00068}00068\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ handshake\ with\ i2c\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ handshake\ the\ i2c\ bus.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00071}00071\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00072}00072\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00073}00073\ \ \ \ \ \textcolor{comment}{/*\ Wait\ 20ms\ before\ proceeding\ with\ the\ next\ write\ command\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00074}00074\ \ \ \ \ sleep(0.02);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00076}00076\ \ \ \ \ \textcolor{comment}{/*\ Trigger\ measurement\ (request\ command)\ acc.\ AHT10\ sensor\ datasheet\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00077}00077\ \ \ \ \ data[0]\ =\ 0xAC;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00078}00078\ \ \ \ \ data[1]\ =\ 0x33;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00079}00079\ \ \ \ \ data[2]\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00080}00080\ \ \ \ \ length\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00081}00081\ \ \ \ \ \textcolor{comment}{/*\ Send\ trigger\ measurement\ command\ to\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00082}00082\ \ \ \ \ \textcolor{keywordflow}{if}\ (write(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00083}00083\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00084}00084\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ request\ data\ from\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00085}00085\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ request\ data\ from\ the\ I2C\ bus.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00086}00086\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00087}00087\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00088}00088\ \ \ \ \ \textcolor{comment}{/*\ Wait\ 20ms\ before\ proceeding\ with\ the\ next\ read\ command\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00089}00089\ \ \ \ \ sleep(0.02);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00090}00090\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00091}00091\ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ 6\ bytes\ answer\ from\ I2C\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00092}00092\ \ \ \ \ length\ =\ 6;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00093}00093\ \ \ \ \ \textcolor{keywordflow}{if}\ (read(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00094}00094\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00095}00095\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ get\ data\ from\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00096}00096\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ read\ output\ temp.\ from\ the\ i2c\ AHT10\ sensor.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00097}00097\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00098}00098\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00099}00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ data;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00100}00100\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00101}00101\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00102}00102\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00103}\mbox{\hyperlink{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505}{00103}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505}{compute\_temperature\_celsius}}(\textcolor{keywordtype}{char}\ *data)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordtype}{int}\ comp\_temp;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00105}00105\ \ \ \ \ \textcolor{keywordtype}{float}\ temperature\_celsius;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00106}00106\ \ \ \ \ comp\_temp\ =\ ((data[3]\ \&\ 0x0F)\ <<\ 16)\ |\ (data[4]\ <<\ 8)\ |\ data[5];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00107}00107\ \ \ \ \ temperature\_celsius\ =\ ((comp\_temp*200.0)/1048576)\ -\/50.0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00108}00108\ \ \ \ \ \textcolor{keywordflow}{return}\ temperature\_celsius;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00109}00109\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00110}00110\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00111}\mbox{\hyperlink{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418}{00111}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418}{start\_listener}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ port)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00112}00112\ \ \ \ \ \textcolor{keywordtype}{int}\ socket\_desc;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00113}00113\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ server;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00114}00114\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00115}00115\ \ \ \ \ socket\_desc\ =\ socket(AF\_INET\ ,\ SOCK\_STREAM\ ,\ 0);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00116}00116\ \ \ \ \ \textcolor{keywordflow}{if}\ (socket\_desc\ ==\ -\/1)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00117}00117\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00118}00118\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ create\ socket."{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00119}00119\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00120}00120\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00121}00121\ \ \ \ \ server.sin\_family\ =\ AF\_INET;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00122}00122\ \ \ \ \ server.sin\_addr.s\_addr\ =\ INADDR\_ANY;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00123}00123\ \ \ \ \ server.sin\_port\ =\ htons(\ port\ );}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00124}00124\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00125}00125\ \ \ \ \ \textcolor{keywordflow}{if}(\ bind(socket\_desc,(\textcolor{keyword}{struct}\ sockaddr\ *)\&server\ ,\ \textcolor{keyword}{sizeof}(server))\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00126}00126\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00127}00127\ \ \ \ \ \ \ \ \ perror(\textcolor{stringliteral}{"{}Unable\ to\ bind\ socket."{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00128}00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00129}00129\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00130}00130\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00131}00131\ \ \ \ \ listen(socket\_desc\ ,\ \mbox{\hyperlink{hw__aht10__func_8h_a0592dba56693fad79136250c11e5a7fe}{MAX\_SIZE}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00132}00132\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00133}00133\ \ \ \ \ \textcolor{keywordflow}{return}\ socket\_desc;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00134}00134\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00135}00135\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00136}\mbox{\hyperlink{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99}{00136}}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99}{read\_sensor}}(\textcolor{keywordtype}{void}\ *arg)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00137}00137\ \ \ \ \ \mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ *\mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}\ =\ (\mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ *)arg;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00138}00138\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00139}00139\ \ \ \ \ \textcolor{keywordtype}{char}\ *data\ =\ \mbox{\hyperlink{hw__aht10__func_8c_a0524ee8ae6eb364f6eb02d07d6d941e5}{get\_data\_from\_sensor}}(\mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}-\/>\mbox{\hyperlink{struct_sensor_info_ae6eb8f25aa13f022a3e7e1e1aef61432}{dev\_name}},\ \mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}-\/>\mbox{\hyperlink{struct_sensor_info_a686a6aa6451bdca0449db9d921daae26}{dev\_address}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00140}00140\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00141}00141\ \ \ \ \ pthread\_mutex\_lock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00142}00142\ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ 0;\ i\ <\ 6;\ ++i)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00143}00143\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}-\/>\mbox{\hyperlink{struct_sensor_info_a3825e3e0922badc8848709cf608821ea}{data}}[i]\ =\ data[i];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00144}00144\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00145}00145\ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ =\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c}{e\_computing}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00146}00146\ \ \ \ \ pthread\_cond\_signal(\&\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00147}00147\ \ \ \ \ pthread\_mutex\_unlock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00148}00148\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00149}00149\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00150}00150\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00151}00151\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00152}\mbox{\hyperlink{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887}{00152}}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887}{compute\_temperature}}(\textcolor{keywordtype}{void}\ *arg)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00153}00153\ \ \ \ \ \mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ *\mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}\ =\ (\mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ *)arg;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00154}00154\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00155}00155\ \ \ \ \ pthread\_mutex\_lock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00156}00156\ \ \ \ \ \textcolor{keywordflow}{while}(\ \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ !=\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c}{e\_computing}}\ )\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00157}00157\ \ \ \ \ \ \ \ \ pthread\_cond\_wait(\&\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}},\ \&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00158}00158\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00159}00159\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00160}00160\ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}{temperature}}\ =\ \mbox{\hyperlink{hw__aht10__func_8c_ad8be852f92bde19aeb01e6aa0f05b505}{compute\_temperature\_celsius}}(\mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}-\/>\mbox{\hyperlink{struct_sensor_info_a3825e3e0922badc8848709cf608821ea}{data}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00161}00161\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00162}00162\ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ =\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce}{e\_ready}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00163}00163\ \ \ \ \ pthread\_cond\_signal(\&\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00164}00164\ \ \ \ \ pthread\_mutex\_unlock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00165}00165\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00166}00166\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00167}00167\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00168}\mbox{\hyperlink{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6}{00168}}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6}{send\_message}}(\textcolor{keywordtype}{int}\ client\_socket)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00169}00169\ \ \ \ \ \textcolor{keywordtype}{char}\ message[\mbox{\hyperlink{hw__aht10__func_8h_a0592dba56693fad79136250c11e5a7fe}{MAX\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00170}00170\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00171}00171\ \ \ \ \ sprintf(message,\ \textcolor{stringliteral}{"{}Honeywell\ ATH10\ Temperature\ Server\(\backslash\)n\ Current\ temperature:\ \%.2f°C\(\backslash\)n"{}},\ \mbox{\hyperlink{hw__aht10__func_8c_afc1d28cfbce795d6ea954ebe725241f5}{temperature}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00172}00172\ \ \ \ \ write(client\_socket\ ,\ message\ ,\ strlen(message));}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00173}00173\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00174}00174\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00175}\mbox{\hyperlink{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd}{00175}}\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd}{connection\_handler}}(\textcolor{keywordtype}{void}\ *socket\_desc)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00176}00176\ \ \ \ \ \textcolor{keywordtype}{int}\ client\_socket\ =\ *(\textcolor{keywordtype}{int}*)socket\_desc;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00177}00177\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00178}00178\ \ \ \ \ pthread\_mutex\_lock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00179}00179\ \ \ \ \ \textcolor{keywordflow}{while}\ (\mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ !=\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce}{e\_ready}})\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00180}00180\ \ \ \ \ \ \ \ \ pthread\_cond\_wait(\&\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}},\ \&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00181}00181\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00182}00182\ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8c_aeb7334c25e39bfab2260a227e22446a6}{send\_message}}(client\_socket);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00183}00183\ \ \ \ \ \mbox{\hyperlink{hw__aht10__func_8c_aac78fc5f81ed7c25e64461b2902e7805}{data\_ready}}\ =\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2}{e\_gathering}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00184}00184\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00185}00185\ \ \ \ \ pthread\_cond\_signal(\&\mbox{\hyperlink{hw__aht10__func_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00186}00186\ \ \ \ \ pthread\_mutex\_unlock(\&\mbox{\hyperlink{hw__aht10__func_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00187}00187\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00188}00188\ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8c_source_l00189}00189\ \}}
+
+\end{DoxyCode}

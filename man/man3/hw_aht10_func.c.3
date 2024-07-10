@@ -1,0 +1,130 @@
+.TH "hw_aht10_func.c" 3 "Version Sr Advanced Embedded Engr." "Honeywell Linux Assessment" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+hw_aht10_func.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <unistd\&.h>\fP
+.br
+\fR#include <fcntl\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <string\&.h>\fP
+.br
+\fR#include <pthread\&.h>\fP
+.br
+\fR#include <arpa/inet\&.h>\fP
+.br
+\fR#include <sys/ioctl\&.h>\fP
+.br
+\fR#include <sys/socket\&.h>\fP
+.br
+\fR#include <linux/i2c\-dev\&.h>\fP
+.br
+\fR#include 'hw_aht10_func\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBvalidate_inputs\fP (int argc, char **argv)"
+.br
+.ti -1c
+.RI "char * \fBget_data_from_sensor\fP (char *device_name, int dev_addr)"
+.br
+.ti -1c
+.RI "float \fBcompute_temperature_celsius\fP (char *data)"
+.br
+.ti -1c
+.RI "int \fBstart_listener\fP (unsigned short port)"
+.br
+.ti -1c
+.RI "void * \fBread_sensor\fP (void *arg)"
+.br
+.ti -1c
+.RI "void * \fBcompute_temperature\fP (void *arg)"
+.br
+.ti -1c
+.RI "void \fBsend_message\fP (int client_socket)"
+.br
+.ti -1c
+.RI "void * \fBconnection_handler\fP (void *socket_desc)"
+.br
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "pthread_mutex_t \fBmutex\fP"
+.br
+.ti -1c
+.RI "pthread_cond_t \fBcond\fP"
+.br
+.ti -1c
+.RI "int \fBdata_ready\fP = \fBe_gathering\fP"
+.br
+.ti -1c
+.RI "float \fBtemperature\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "void * compute_temperature (void * arg)"
+
+.PP
+Definition at line \fB152\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "float compute_temperature_celsius (char * data)"
+
+.PP
+Definition at line \fB103\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "void * connection_handler (void * socket_desc)"
+
+.PP
+Definition at line \fB175\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "char * get_data_from_sensor (char * device_name, int dev_addr)"
+
+.PP
+Definition at line \fB41\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "void * read_sensor (void * arg)"
+
+.PP
+Definition at line \fB136\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "void send_message (int client_socket)"
+
+.PP
+Definition at line \fB168\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "int start_listener (unsigned short port)"
+
+.PP
+Definition at line \fB111\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "int validate_inputs (int argc, char ** argv)"
+
+.PP
+Definition at line \fB19\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "pthread_cond_t cond"
+
+.PP
+Definition at line \fB15\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "int data_ready = \fBe_gathering\fP"
+
+.PP
+Definition at line \fB16\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "pthread_mutex_t mutex"
+
+.PP
+Definition at line \fB14\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SS "float temperature"
+
+.PP
+Definition at line \fB17\fP of file \fBhw_aht10_func\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Honeywell Linux Assessment from the source code\&.

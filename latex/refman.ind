@@ -1,0 +1,137 @@
+\begin{theindex}
+
+  \item {compute\_temperature}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{16}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+  \item {compute\_temperature\_celsius}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{16}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+  \item {cond}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{19}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{26}
+    \subitem {hw\_aht10\_temperature\_server.c}, \hyperpage{31}
+  \item {connection\_handler}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{16}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{24}
+
+  \indexspace
+
+  \item {data}
+    \subitem {SensorInfo}, \hyperpage{13}
+  \item {data\_ready}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{19}
+  \item {dev\_address}
+    \subitem {SensorInfo}, \hyperpage{13}
+  \item {dev\_name}
+    \subitem {SensorInfo}, \hyperpage{13}
+
+  \indexspace
+
+  \item {e\_computing}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+  \item {e\_gathering}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+  \item {e\_ready}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+
+  \indexspace
+
+  \item {get\_data\_from\_sensor}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{17}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{24}
+  \item {get\_temperature\_celsius}
+    \subitem {hw\_aht10\_get\_temp.c}, \hyperpage{27}
+
+  \indexspace
+
+  \item {Honeywell Linux Assessment Documentation}, \hyperpage{1}
+  \item {hw\_aht10\_func.c}, \hyperpage{15}
+    \subitem {compute\_temperature}, \hyperpage{16}
+    \subitem {compute\_temperature\_celsius}, \hyperpage{16}
+    \subitem {cond}, \hyperpage{19}
+    \subitem {connection\_handler}, \hyperpage{16}
+    \subitem {data\_ready}, \hyperpage{19}
+    \subitem {get\_data\_from\_sensor}, \hyperpage{17}
+    \subitem {mutex}, \hyperpage{19}
+    \subitem {read\_sensor}, \hyperpage{17}
+    \subitem {send\_message}, \hyperpage{18}
+    \subitem {start\_listener}, \hyperpage{18}
+    \subitem {temperature}, \hyperpage{19}
+    \subitem {validate\_inputs}, \hyperpage{19}
+  \item {hw\_aht10\_func.h}, \hyperpage{22}
+    \subitem {compute\_temperature}, \hyperpage{23}
+    \subitem {compute\_temperature\_celsius}, \hyperpage{23}
+    \subitem {cond}, \hyperpage{26}
+    \subitem {connection\_handler}, \hyperpage{24}
+    \subitem {e\_computing}, \hyperpage{23}
+    \subitem {e\_gathering}, \hyperpage{23}
+    \subitem {e\_ready}, \hyperpage{23}
+    \subitem {get\_data\_from\_sensor}, \hyperpage{24}
+    \subitem {MAX\_SIZE}, \hyperpage{22}
+    \subitem {mutex}, \hyperpage{26}
+    \subitem {read\_sensor}, \hyperpage{25}
+    \subitem {send\_message}, \hyperpage{25}
+    \subitem {sensor\_info}, \hyperpage{26}
+    \subitem {start\_listener}, \hyperpage{26}
+    \subitem {threads\_states}, \hyperpage{23}
+    \subitem {validate\_inputs}, \hyperpage{26}
+  \item {hw\_aht10\_get\_temp.c}, \hyperpage{27}
+    \subitem {get\_temperature\_celsius}, \hyperpage{27}
+    \subitem {main}, \hyperpage{28}
+    \subitem {validate\_inputs}, \hyperpage{28}
+  \item {hw\_aht10\_temperature\_server.c}, \hyperpage{30}
+    \subitem {cond}, \hyperpage{31}
+    \subitem {main}, \hyperpage{30}
+    \subitem {mutex}, \hyperpage{31}
+    \subitem {sensor\_info}, \hyperpage{32}
+
+  \indexspace
+
+  \item {main}
+    \subitem {hw\_aht10\_get\_temp.c}, \hyperpage{28}
+    \subitem {hw\_aht10\_temperature\_server.c}, \hyperpage{30}
+  \item {mainpage.dox}, \hyperpage{32}
+  \item {MAX\_SIZE}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{22}
+  \item {mutex}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{19}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{26}
+    \subitem {hw\_aht10\_temperature\_server.c}, \hyperpage{31}
+
+  \indexspace
+
+  \item {read\_sensor}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{17}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{25}
+
+  \indexspace
+
+  \item {send\_message}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{18}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{25}
+  \item {sensor\_info}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{26}
+    \subitem {hw\_aht10\_temperature\_server.c}, \hyperpage{32}
+  \item {SensorInfo}, \hyperpage{13}
+    \subitem {data}, \hyperpage{13}
+    \subitem {dev\_address}, \hyperpage{13}
+    \subitem {dev\_name}, \hyperpage{13}
+  \item {start\_listener}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{18}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{26}
+
+  \indexspace
+
+  \item {temperature}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{19}
+  \item {threads\_states}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{23}
+
+  \indexspace
+
+  \item {validate\_inputs}
+    \subitem {hw\_aht10\_func.c}, \hyperpage{19}
+    \subitem {hw\_aht10\_func.h}, \hyperpage{26}
+    \subitem {hw\_aht10\_get\_temp.c}, \hyperpage{28}
+
+\end{theindex}

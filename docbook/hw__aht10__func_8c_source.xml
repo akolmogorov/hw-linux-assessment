@@ -1,0 +1,193 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__aht10__func_8c_source" xml:lang="en-US">
+<title>hw_aht10_func.c</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_hw__aht10__func_8c_source_1l00001"/>00001 <emphasis role="preprocessor">#include&#32;&lt;unistd.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&lt;fcntl.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;string.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;pthread.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;arpa/inet.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&lt;sys/ioctl.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00009"/>00009 <emphasis role="preprocessor">#include&#32;&lt;sys/socket.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00010"/>00010 <emphasis role="preprocessor">#include&#32;&lt;linux/i2c-dev.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00011"/>00011 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_hw__aht10__func_8h">hw_aht10_func.h</link>&quot;</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00012"/>00012 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00013"/>00013 <emphasis role="comment">/*&#32;Shared&#32;data&#32;and&#32;sync&#32;for&#32;threads*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00014"/><link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">00014</link> pthread_mutex_t&#32;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00015"/><link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">00015</link> pthread_cond_t&#32;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00016"/><link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">00016</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2">e_gathering</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00017"/><link linkend="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5">00017</link> <emphasis role="keywordtype">float</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5">temperature</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00018"/>00018 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00019"/><link linkend="_hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc">00019</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc">validate_inputs</link>(<emphasis role="keywordtype">int</emphasis>&#32;argc,&#32;<emphasis role="keywordtype">char</emphasis>&#32;**argv)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00020"/>00020 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*cp,&#32;*program_name&#32;=&#32;argv[0];
+<anchor xml:id="_hw__aht10__func_8c_source_1l00021"/>00021 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00022"/>00022 &#32;&#32;&#32;&#32;<emphasis role="comment">//&#32;skip&#32;over&#32;program&#32;name</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00023"/>00023 &#32;&#32;&#32;&#32;--argc;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00024"/>00024 &#32;&#32;&#32;&#32;++argv;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00025"/>00025 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00026"/>00026 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(argc&#32;&lt;&#32;3)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,<emphasis role="stringliteral">&quot;\n&#32;WARNING&#32;%s:&#32;not&#32;(all)&#32;arguments&#32;specified&quot;</emphasis>,&#32;program_name);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00028"/>00028 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,<emphasis role="stringliteral">&quot;\n&#32;-------&gt;&#32;starting&#32;server&#32;with&#32;default&#32;value!\n\n&quot;</emphasis>,&#32;program_name);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00031"/>00031 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00032"/>00032 &#32;&#32;&#32;&#32;cp&#32;=&#32;*argv;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00033"/>00033 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(*cp&#32;==&#32;0)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00034"/>00034 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;fprintf(stderr,<emphasis role="stringliteral">&quot;\n&#32;WARNING&#32;%s:&#32;starting&#32;server&#32;with&#32;default&#32;values!\n&quot;</emphasis>,&#32;program_name);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00035"/>00035 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00036"/>00036 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00037"/>00037 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00038"/>00038 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00039"/>00039 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00040"/>00040 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00041"/><link linkend="_hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5">00041</link> <emphasis role="keywordtype">char</emphasis>&#32;*&#32;<link linkend="_hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5">get_data_from_sensor</link>(<emphasis role="keywordtype">char</emphasis>&#32;*device_name,&#32;<emphasis role="keywordtype">int</emphasis>&#32;dev_addr)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<emphasis role="keyword">static</emphasis>&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;data[6]&#32;=&#32;{0};
+<anchor xml:id="_hw__aht10__func_8c_source_1l00043"/>00043 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;i2c_handler,&#32;length,&#32;comp_temp;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;temperature_celsius;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00045"/>00045 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Get&#32;I2C&#32;handler&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00047"/>00047 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((i2c_handler&#32;=&#32;open(device_name,&#32;O_RDWR))&#32;&lt;&#32;0)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00049"/>00049 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Error&#32;getting&#32;the&#32;file&#32;descriptor&#32;from&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;open&#32;I2C&#32;device&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00053"/>00053 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Calling&#32;kernel&#32;layer&#32;from&#32;user&#32;space&#32;to&#32;connect&#32;with&#32;I2C&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00054"/>00054 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(ioctl(i2c_handler,&#32;I2C_SLAVE,&#32;dev_addr)&#32;&lt;&#32;0)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00055"/>00055 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00056"/>00056 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Bus&#32;access&#32;failed&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00057"/>00057 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;connect&#32;to&#32;low-level&#32;device&#32;I2C.\n&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00058"/>00058 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00059"/>00059 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00060"/>00060 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00061"/>00061 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Handshake&#32;(initialization&#32;command)&#32;according&#32;AHT10&#32;sensor&#32;datasheet&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;data[0]&#32;=&#32;0xE1;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;data[1]&#32;=&#32;0x08;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00064"/>00064 &#32;&#32;&#32;&#32;data[2]&#32;=&#32;0x00;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;length&#32;=&#32;3;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Send&#32;initialization&#32;command&#32;to&#32;I2C&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00067"/>00067 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(write(i2c_handler,&#32;data,&#32;length)&#32;!=&#32;length)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Unable&#32;to&#32;handshake&#32;with&#32;i2c&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;handshake&#32;the&#32;i2c&#32;bus.\n&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00071"/>00071 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00072"/>00072 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Wait&#32;20ms&#32;before&#32;proceeding&#32;with&#32;the&#32;next&#32;write&#32;command&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;sleep(0.02);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00075"/>00075 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Trigger&#32;measurement&#32;(request&#32;command)&#32;acc.&#32;AHT10&#32;sensor&#32;datasheet&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00077"/>00077 &#32;&#32;&#32;&#32;data[0]&#32;=&#32;0xAC;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00078"/>00078 &#32;&#32;&#32;&#32;data[1]&#32;=&#32;0x33;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;data[2]&#32;=&#32;0x00;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00080"/>00080 &#32;&#32;&#32;&#32;length&#32;=&#32;3;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00081"/>00081 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Send&#32;trigger&#32;measurement&#32;command&#32;to&#32;I2C&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00082"/>00082 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(write(i2c_handler,&#32;data,&#32;length)&#32;!=&#32;length)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00083"/>00083 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00084"/>00084 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Unable&#32;to&#32;request&#32;data&#32;from&#32;I2C&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00085"/>00085 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;request&#32;data&#32;from&#32;the&#32;I2C&#32;bus.\n&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00086"/>00086 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00087"/>00087 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00088"/>00088 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Wait&#32;20ms&#32;before&#32;proceeding&#32;with&#32;the&#32;next&#32;read&#32;command&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00089"/>00089 &#32;&#32;&#32;&#32;sleep(0.02);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00090"/>00090 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00091"/>00091 &#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Read&#32;the&#32;6&#32;bytes&#32;answer&#32;from&#32;I2C&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00092"/>00092 &#32;&#32;&#32;&#32;length&#32;=&#32;6;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00093"/>00093 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(read(i2c_handler,&#32;data,&#32;length)&#32;!=&#32;length)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00094"/>00094 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00095"/>00095 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="comment">/*&#32;Unable&#32;to&#32;get&#32;data&#32;from&#32;I2C&#32;device&#32;*/</emphasis>
+<anchor xml:id="_hw__aht10__func_8c_source_1l00096"/>00096 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;read&#32;output&#32;temp.&#32;from&#32;the&#32;i2c&#32;AHT10&#32;sensor.\n&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00097"/>00097 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00098"/>00098 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">else</emphasis>&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00099"/>00099 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;data;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00100"/>00100 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00101"/>00101 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00102"/>00102 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00103"/><link linkend="_hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505">00103</link> <emphasis role="keywordtype">float</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505">compute_temperature_celsius</link>(<emphasis role="keywordtype">char</emphasis>&#32;*data)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00104"/>00104 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;comp_temp;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00105"/>00105 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">float</emphasis>&#32;temperature_celsius;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00106"/>00106 &#32;&#32;&#32;&#32;comp_temp&#32;=&#32;((data[3]&#32;&amp;&#32;0x0F)&#32;&lt;&lt;&#32;16)&#32;|&#32;(data[4]&#32;&lt;&lt;&#32;8)&#32;|&#32;data[5];
+<anchor xml:id="_hw__aht10__func_8c_source_1l00107"/>00107 &#32;&#32;&#32;&#32;temperature_celsius&#32;=&#32;((comp_temp*200.0)/1048576)&#32;-50.0;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00108"/>00108 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;temperature_celsius;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00109"/>00109 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00110"/>00110 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00111"/><link linkend="_hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418">00111</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418">start_listener</link>(<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">short</emphasis>&#32;port)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00112"/>00112 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;socket_desc;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00113"/>00113 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>sockaddr_in&#32;server;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00114"/>00114 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00115"/>00115 &#32;&#32;&#32;&#32;socket_desc&#32;=&#32;socket(AF_INET&#32;,&#32;SOCK_STREAM&#32;,&#32;0);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00116"/>00116 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(socket_desc&#32;==&#32;-1)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00117"/>00117 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00118"/>00118 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;create&#32;socket.&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00119"/>00119 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00120"/>00120 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00121"/>00121 &#32;&#32;&#32;&#32;server.sin_family&#32;=&#32;AF_INET;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00122"/>00122 &#32;&#32;&#32;&#32;server.sin_addr.s_addr&#32;=&#32;INADDR_ANY;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00123"/>00123 &#32;&#32;&#32;&#32;server.sin_port&#32;=&#32;htons(&#32;port&#32;);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00124"/>00124 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00125"/>00125 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>(&#32;bind(socket_desc,(<emphasis role="keyword">struct</emphasis>&#32;sockaddr&#32;*)&amp;server&#32;,&#32;<emphasis role="keyword">sizeof</emphasis>(server))&#32;&lt;&#32;0)
+<anchor xml:id="_hw__aht10__func_8c_source_1l00126"/>00126 &#32;&#32;&#32;&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00127"/>00127 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;perror(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;bind&#32;socket.&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00128"/>00128 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;1;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00129"/>00129 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00130"/>00130 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00131"/>00131 &#32;&#32;&#32;&#32;listen(socket_desc&#32;,&#32;<link linkend="_hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe">MAX_SIZE</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00132"/>00132 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00133"/>00133 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;socket_desc;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00134"/>00134 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00135"/>00135 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00136"/><link linkend="_hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99">00136</link> <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99">read_sensor</link>(<emphasis role="keywordtype">void</emphasis>&#32;*arg)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00137"/>00137 &#32;&#32;&#32;&#32;<link linkend="_struct_sensor_info">SensorInfo</link>&#32;*<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>&#32;=&#32;(<link linkend="_struct_sensor_info">SensorInfo</link>&#32;*)arg;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00138"/>00138 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00139"/>00139 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;*data&#32;=&#32;<link linkend="_hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5">get_data_from_sensor</link>(<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>-&gt;<link linkend="_struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432">dev_name</link>,&#32;<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>-&gt;<link linkend="_struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26">dev_address</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00140"/>00140 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00141"/>00141 &#32;&#32;&#32;&#32;pthread_mutex_lock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00142"/>00142 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">for</emphasis>&#32;(<emphasis role="keywordtype">int</emphasis>&#32;i&#32;=&#32;0;&#32;i&#32;&lt;&#32;6;&#32;++i)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00143"/>00143 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>-&gt;<link linkend="_struct_sensor_info_1a3825e3e0922badc8848709cf608821ea">data</link>[i]&#32;=&#32;data[i];
+<anchor xml:id="_hw__aht10__func_8c_source_1l00144"/>00144 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00145"/>00145 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c">e_computing</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00146"/>00146 &#32;&#32;&#32;&#32;pthread_cond_signal(&amp;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00147"/>00147 &#32;&#32;&#32;&#32;pthread_mutex_unlock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00148"/>00148 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00149"/>00149 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00150"/>00150 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00151"/>00151 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00152"/><link linkend="_hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887">00152</link> <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887">compute_temperature</link>(<emphasis role="keywordtype">void</emphasis>&#32;*arg)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00153"/>00153 &#32;&#32;&#32;&#32;<link linkend="_struct_sensor_info">SensorInfo</link>&#32;*<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>&#32;=&#32;(<link linkend="_struct_sensor_info">SensorInfo</link>&#32;*)arg;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00154"/>00154 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00155"/>00155 &#32;&#32;&#32;&#32;pthread_mutex_lock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00156"/>00156 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>(&#32;<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;!=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c">e_computing</link>&#32;)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00157"/>00157 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_cond_wait(&amp;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>,&#32;&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00158"/>00158 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00159"/>00159 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00160"/>00160 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5">temperature</link>&#32;=&#32;<link linkend="_hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505">compute_temperature_celsius</link>(<link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>-&gt;<link linkend="_struct_sensor_info_1a3825e3e0922badc8848709cf608821ea">data</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00161"/>00161 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00162"/>00162 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce">e_ready</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00163"/>00163 &#32;&#32;&#32;&#32;pthread_cond_signal(&amp;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00164"/>00164 &#32;&#32;&#32;&#32;pthread_mutex_unlock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00165"/>00165 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00166"/>00166 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00167"/>00167 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00168"/><link linkend="_hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6">00168</link> <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6">send_message</link>(<emphasis role="keywordtype">int</emphasis>&#32;client_socket)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00169"/>00169 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">char</emphasis>&#32;message[<link linkend="_hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe">MAX_SIZE</link>];
+<anchor xml:id="_hw__aht10__func_8c_source_1l00170"/>00170 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00171"/>00171 &#32;&#32;&#32;&#32;sprintf(message,&#32;<emphasis role="stringliteral">&quot;Honeywell&#32;ATH10&#32;Temperature&#32;Server\n&#32;Current&#32;temperature:&#32;%.2f°C\n&quot;</emphasis>,&#32;<link linkend="_hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5">temperature</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00172"/>00172 &#32;&#32;&#32;&#32;write(client_socket&#32;,&#32;message&#32;,&#32;strlen(message));
+<anchor xml:id="_hw__aht10__func_8c_source_1l00173"/>00173 }
+<anchor xml:id="_hw__aht10__func_8c_source_1l00174"/>00174 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00175"/><link linkend="_hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd">00175</link> <emphasis role="keywordtype">void</emphasis>&#32;*<link linkend="_hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd">connection_handler</link>(<emphasis role="keywordtype">void</emphasis>&#32;*socket_desc)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00176"/>00176 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;client_socket&#32;=&#32;*(<emphasis role="keywordtype">int</emphasis>*)socket_desc;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00177"/>00177 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00178"/>00178 &#32;&#32;&#32;&#32;pthread_mutex_lock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00179"/>00179 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;(<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;!=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce">e_ready</link>)&#32;{
+<anchor xml:id="_hw__aht10__func_8c_source_1l00180"/>00180 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_cond_wait(&amp;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>,&#32;&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00181"/>00181 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__func_8c_source_1l00182"/>00182 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6">send_message</link>(client_socket);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00183"/>00183 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805">data_ready</link>&#32;=&#32;<link linkend="_hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2">e_gathering</link>;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00184"/>00184 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00185"/>00185 &#32;&#32;&#32;&#32;pthread_cond_signal(&amp;<link linkend="_hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00186"/>00186 &#32;&#32;&#32;&#32;pthread_mutex_unlock(&amp;<link linkend="_hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__func_8c_source_1l00187"/>00187 
+<anchor xml:id="_hw__aht10__func_8c_source_1l00188"/>00188 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;NULL;
+<anchor xml:id="_hw__aht10__func_8c_source_1l00189"/>00189 }
+</programlisting></section>

@@ -1,0 +1,117 @@
+.TH "hw_aht10_temperature_server.c" 3 "Version Sr Advanced Embedded Engr." "Honeywell Linux Assessment" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+hw_aht10_temperature_server.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <pthread\&.h>\fP
+.br
+\fR#include <arpa/inet\&.h>\fP
+.br
+\fR#include <sys/ioctl\&.h>\fP
+.br
+\fR#include <sys/socket\&.h>\fP
+.br
+\fR#include 'hw_aht10_func\&.h'\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.RI "In this section the TCP server binds connections with clients using threads for:
+.br
+\&. "
+.in -1c
+.SS "Variables"
+
+.in +1c
+.ti -1c
+.RI "pthread_mutex_t \fBmutex\fP"
+.br
+.ti -1c
+.RI "pthread_cond_t \fBcond\fP"
+.br
+.ti -1c
+.RI "\fBSensorInfo\fP \fBsensor_info\fP"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "int main (int argc, char ** argv)"
+
+.PP
+In this section the TCP server binds connections with clients using threads for:
+.br
+\&. 
+.IP "\(bu" 2
+1) Getting data from AHT10 sensor
+.br
+
+.IP "\(bu" 2
+2) Computing the current temperature, and 
+.br
+
+.IP "\(bu" 2
+3) Attending new temperature requests via TCP\&.
+.PP
+.PP
+\fBParameters\fP
+.RS 4
+\fIargc\fP Argument count 
+.br
+\fIargv\fP Argument vector 
+.RE
+.PP
+\fBReturns\fP
+.RS 4
+Exit status 
+.RE
+.PP
+TCP port is 5000 by default
+.PP
+Default values for I2C hardware:
+.IP "\(bu" 2
+The device name by default is the file descriptor we found at /dev/i2c-1 and,
+.IP "\(bu" 2
+The device address for the AHT10 sensor is 0x38\&.
+.br
+
+.br
+
+.PP
+.PP
+NOTE: These values can be modified according to the connected sensor and the board when executing the program via the parameter \fIargv\fP\&.
+.PP
+Main loop:
+.IP "\(bu" 2
+Once a client connection is accepted, three threads are created as mentioned above including the mutex and cond sections for \fBavoiding race conditions and/or deadlocks\fP\&.
+.PP
+
+.PP
+Definition at line \fB26\fP of file \fBhw_aht10_temperature_server\&.c\fP\&.
+.SH "Variable Documentation"
+.PP 
+.SS "pthread_cond_t cond"
+Condition variable for thread synchronization (prevents race conditions) 
+.PP
+Definition at line \fB11\fP of file \fBhw_aht10_temperature_server\&.c\fP\&.
+.SS "pthread_mutex_t mutex"
+Mutex for thread synchronization (prevents deadlocks) 
+.PP
+Definition at line \fB10\fP of file \fBhw_aht10_temperature_server\&.c\fP\&.
+.SS "\fBSensorInfo\fP sensor_info"
+Sensor information structure 
+.PP
+Definition at line \fB12\fP of file \fBhw_aht10_temperature_server\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Honeywell Linux Assessment from the source code\&.

@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="struct_sensor_info" kind="struct" language="C++" prot="public">
+    <compoundname>SensorInfo</compoundname>
+    <includes refid="hw__aht10__func_8h" local="no">hw_aht10_func.h</includes>
+    <sectiondef kind="public-attrib">
+      <memberdef kind="variable" id="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char dev_name[MAX_SIZE]</definition>
+        <argsstring>[MAX_SIZE]</argsstring>
+        <name>dev_name</name>
+        <qualifiedname>SensorInfo::dev_name</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="7" column="10" bodyfile="hw_aht10_func.h" bodystart="7" bodyend="-1"/>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" prot="public" static="no" mutable="no">
+        <type>int</type>
+        <definition>int dev_address</definition>
+        <argsstring></argsstring>
+        <name>dev_address</name>
+        <qualifiedname>SensorInfo::dev_address</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="8" column="9" bodyfile="hw_aht10_func.h" bodystart="8" bodyend="-1"/>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="struct_sensor_info_1a3825e3e0922badc8848709cf608821ea" prot="public" static="no" mutable="no">
+        <type>char</type>
+        <definition>char data[6]</definition>
+        <argsstring>[6]</argsstring>
+        <name>data</name>
+        <qualifiedname>SensorInfo::data</qualifiedname>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="9" column="10" bodyfile="hw_aht10_func.h" bodystart="9" bodyend="-1"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="hw_aht10_func.h" line="6" column="1" bodyfile="hw_aht10_func.h" bodystart="6" bodyend="10"/>
+    <listofallmembers>
+      <member refid="struct_sensor_info_1a3825e3e0922badc8848709cf608821ea" prot="public" virt="non-virtual"><scope>SensorInfo</scope><name>data</name></member>
+      <member refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" prot="public" virt="non-virtual"><scope>SensorInfo</scope><name>dev_address</name></member>
+      <member refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" prot="public" virt="non-virtual"><scope>SensorInfo</scope><name>dev_name</name></member>
+    </listofallmembers>
+  </compounddef>
+</doxygen>

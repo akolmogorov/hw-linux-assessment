@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="dir_68267d1309a1af8e8297ef4c3efbcdba" kind="dir">
+    <compoundname>src</compoundname>
+    <innerfile refid="hw__aht10__func_8c">hw_aht10_func.c</innerfile>
+    <innerfile refid="hw__aht10__func_8h">hw_aht10_func.h</innerfile>
+    <innerfile refid="hw__aht10__get__temp_8c">hw_aht10_get_temp.c</innerfile>
+    <innerfile refid="hw__aht10__temperature__server_8c">hw_aht10_temperature_server.c</innerfile>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <location file="src/"/>
+  </compounddef>
+</doxygen>

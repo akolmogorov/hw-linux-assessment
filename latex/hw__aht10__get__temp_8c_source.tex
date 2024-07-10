@@ -1,0 +1,115 @@
+\doxysection{hw\+\_\+aht10\+\_\+get\+\_\+temp.\+c}
+\hypertarget{hw__aht10__get__temp_8c_source}{}\label{hw__aht10__get__temp_8c_source}\mbox{\hyperlink{hw__aht10__get__temp_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00001}00001\ \textcolor{preprocessor}{\#include\ <unistd.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <fcntl.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <sys/ioctl.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <linux/i2c-\/dev.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00008}00008\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00009}00009\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a0510c487d3f24e3ccef0cd345cede814}{validate\_inputs}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{char}\ **);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00010}00010\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a5f2a7ec4d5a65c3cebddf744da3d4bc2}{get\_temperature\_celsius}}(\textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00012}\mbox{\hyperlink{hw__aht10__get__temp_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00012}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00013}00013\ \ \ \ \ \textcolor{comment}{/*char\ *device\_name\ =\ (char*)"{}/dev/i2c-\/1"{};}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00014}00014\ \textcolor{comment}{\ \ \ \ int\ dev\_addr\ =\ 0x38;*/}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00015}00015\ \ \ \ \ \textcolor{keywordflow}{if}(\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a0510c487d3f24e3ccef0cd345cede814}{validate\_inputs}}(argc,\ argv)\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00016}00016\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{char}\ *device\_name\ =\ argv[1];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00017}00017\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ dev\_addr\ =\ (int)strtol(argv[2],\ NULL,\ 16);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00018}00018\ \ \ \ \ printf(\textcolor{stringliteral}{"{}\%0.2f\(\backslash\)n"{}},\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a5f2a7ec4d5a65c3cebddf744da3d4bc2}{get\_temperature\_celsius}}(device\_name,\ dev\_addr));}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00019}00019\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00020}00020\ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00021}00021\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}\(\backslash\)n\ Usage:\ \%s\ device\_name\ device\ address\(\backslash\)n\(\backslash\)n"{}},\ argv[0]);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00022}00022\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00023}00023\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00024}00024\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00025}00025\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00026}\mbox{\hyperlink{hw__aht10__get__temp_8c_a0510c487d3f24e3ccef0cd345cede814}{00026}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a0510c487d3f24e3ccef0cd345cede814}{validate\_inputs}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{char}\ *cp,\ *program\_name\ =\ argv[0];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00028}00028\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00029}00029\ \ \ \ \ \textcolor{comment}{//\ skip\ over\ program\ name}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00030}00030\ \ \ \ \ -\/-\/argc;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00031}00031\ \ \ \ \ ++argv;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00033}00033\ \ \ \ \ \textcolor{keywordflow}{if}\ (argc\ <\ 2)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00034}00034\ \ \ \ \ \ \ \ \ fprintf(stderr,\textcolor{stringliteral}{"{}\(\backslash\)n\ \%s:\ not\ (all)\ arguments\ specified\(\backslash\)n"{}},\ program\_name);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00035}00035\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00036}00036\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00037}00037\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00038}00038\ \ \ \ \ cp\ =\ *argv;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00039}00039\ \ \ \ \ \textcolor{keywordflow}{if}\ (*cp\ ==\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00040}00040\ \ \ \ \ \ \ \ \ fprintf(stderr,\textcolor{stringliteral}{"{}\(\backslash\)n\ \%s:\ argument\ an\ empty\ string\(\backslash\)n"{}},\ program\_name);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00041}00041\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00042}00042\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{return}\ 1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00045}00045\ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00046}00046\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00047}\mbox{\hyperlink{hw__aht10__get__temp_8c_a5f2a7ec4d5a65c3cebddf744da3d4bc2}{00047}}\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{hw__aht10__get__temp_8c_a5f2a7ec4d5a65c3cebddf744da3d4bc2}{get\_temperature\_celsius}}(\textcolor{keywordtype}{char}\ *device\_name,\ \textcolor{keywordtype}{int}\ dev\_addr)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00048}00048\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{char}\ data[6]\ =\ \{0\};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00049}00049\ \ \ \ \ \textcolor{keywordtype}{int}\ i2c\_handler,\ length,\ comp\_temp;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordtype}{float}\ temperature\_celsius;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00051}00051\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00052}00052\ \ \ \ \ \textcolor{comment}{/*\ Get\ I2C\ handler\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00053}00053\ \ \ \ \ \textcolor{keywordflow}{if}\ ((i2c\_handler\ =\ open(device\_name,\ O\_RDWR))\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00054}00054\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00055}00055\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Error\ getting\ the\ file\ descriptor\ from\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00056}00056\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ open\ I2C\ device"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00057}00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00058}00058\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00059}00059\ \ \ \ \ \textcolor{comment}{/*\ Calling\ kernel\ layer\ from\ user\ space\ to\ connect\ with\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{if}\ (ioctl(i2c\_handler,\ I2C\_SLAVE,\ dev\_addr)\ <\ 0)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00061}00061\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Bus\ access\ failed\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ connect\ to\ low-\/level\ device\ I2C.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00064}00064\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00065}00065\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00066}00066\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00067}00067\ \ \ \ \ \textcolor{comment}{/*\ Handshake\ (initialization\ command)\ according\ AHT10\ sensor\ datasheet\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00068}00068\ \ \ \ \ data[0]\ =\ 0xE1;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00069}00069\ \ \ \ \ data[1]\ =\ 0x08;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00070}00070\ \ \ \ \ data[2]\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00071}00071\ \ \ \ \ length\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00072}00072\ \ \ \ \ \textcolor{comment}{/*\ Send\ initialization\ command\ to\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00073}00073\ \ \ \ \ \textcolor{keywordflow}{if}\ (write(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00074}00074\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00075}00075\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ handshake\ with\ i2c\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ handshake\ the\ i2c\ bus.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00077}00077\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00078}00078\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00079}00079\ \ \ \ \ \textcolor{comment}{/*\ Wait\ 20ms\ before\ proceeding\ with\ the\ next\ write\ command\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00080}00080\ \ \ \ \ sleep(0.02);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00081}00081\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00082}00082\ \ \ \ \ \textcolor{comment}{/*\ Trigger\ measurement\ (request\ command)\ acc.\ AHT10\ sensor\ datasheet\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00083}00083\ \ \ \ \ data[0]\ =\ 0xAC;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00084}00084\ \ \ \ \ data[1]\ =\ 0x33;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00085}00085\ \ \ \ \ data[2]\ =\ 0x00;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00086}00086\ \ \ \ \ length\ =\ 3;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00087}00087\ \ \ \ \ \textcolor{comment}{/*\ Send\ trigger\ measurement\ command\ to\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00088}00088\ \ \ \ \ \textcolor{keywordflow}{if}\ (write(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00089}00089\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00090}00090\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ request\ data\ from\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00091}00091\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ request\ data\ from\ the\ I2C\ bus.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00092}00092\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00093}00093\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00094}00094\ \ \ \ \ \textcolor{comment}{/*\ Wait\ 20ms\ before\ proceeding\ with\ the\ next\ read\ command\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00095}00095\ \ \ \ \ sleep(0.02);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00096}00096\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00097}00097\ \ \ \ \ \textcolor{comment}{/*\ Read\ the\ 6\ bytes\ answer\ from\ I2C\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00098}00098\ \ \ \ \ length\ =\ 6;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00099}00099\ \ \ \ \ \textcolor{keywordflow}{if}\ (read(i2c\_handler,\ data,\ length)\ !=\ length)}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00100}00100\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00101}00101\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ Unable\ to\ get\ data\ from\ I2C\ device\ */}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00102}00102\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ read\ output\ temp.\ from\ the\ i2c\ AHT10\ sensor.\(\backslash\)n"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00103}00103\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00104}00104\ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00105}00105\ \ \ \ \ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00106}00106\ \ \ \ \ \ \ \ \ comp\_temp\ =\ ((data[3]\ \&\ 0x0F)\ <<\ 16)\ |\ (data[4]\ <<\ 8)\ |\ data[5];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00107}00107\ \ \ \ \ \ \ \ \ temperature\_celsius\ =\ ((comp\_temp*200.0)/1048576)\ -\/50.0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00108}00108\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00109}00109\ \ \ \ \ \textcolor{keywordflow}{return}\ temperature\_celsius;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__get__temp_8c_source_l00110}00110\ \}}
+
+\end{DoxyCode}

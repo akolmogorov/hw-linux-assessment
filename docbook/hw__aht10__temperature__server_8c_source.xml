@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__aht10__temperature__server_8c_source" xml:lang="en-US">
+<title>hw_aht10_temperature_server.c</title>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered"><anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00001"/>00001 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00002"/>00002 <emphasis role="preprocessor">#include&#32;&lt;stdio.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00003"/>00003 <emphasis role="preprocessor">#include&#32;&lt;stdlib.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00004"/>00004 <emphasis role="preprocessor">#include&#32;&lt;pthread.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00005"/>00005 <emphasis role="preprocessor">#include&#32;&lt;arpa/inet.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00006"/>00006 <emphasis role="preprocessor">#include&#32;&lt;sys/ioctl.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00007"/>00007 <emphasis role="preprocessor">#include&#32;&lt;sys/socket.h&gt;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00008"/>00008 <emphasis role="preprocessor">#include&#32;&quot;<link linkend="_hw__aht10__func_8h">hw_aht10_func.h</link>&quot;</emphasis>
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00009"/>00009 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00010"/><link linkend="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">00010</link> pthread_mutex_t&#32;<link linkend="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>;&#32;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00011"/><link linkend="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a">00011</link> pthread_cond_t&#32;<link linkend="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>;&#32;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00012"/><link linkend="_hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f">00012</link> <link linkend="_struct_sensor_info">SensorInfo</link>&#32;<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>;&#32;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00026"/><link linkend="_hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627">00026</link> <emphasis role="keywordtype">int</emphasis>&#32;<link linkend="_hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627">main</link>(<emphasis role="keywordtype">int</emphasis>&#32;argc,&#32;<emphasis role="keywordtype">char</emphasis>&#32;**argv)&#32;{
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00027"/>00027 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">int</emphasis>&#32;socket_desc,&#32;client_sock;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00029"/>00029 &#32;&#32;&#32;&#32;<emphasis role="keywordtype">unsigned</emphasis>&#32;<emphasis role="keywordtype">short</emphasis>&#32;server_port&#32;=&#32;5000;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00030"/>00030 &#32;&#32;&#32;&#32;<emphasis role="keyword">struct&#32;</emphasis>sockaddr_in&#32;client_addr;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00031"/>00031 &#32;&#32;&#32;&#32;socklen_t&#32;client_len;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00032"/>00032 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00041"/>00041 &#32;&#32;&#32;&#32;sprintf(<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>.<link linkend="_struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432">dev_name</link>,<emphasis role="stringliteral">&quot;/dev/i2c-1&quot;</emphasis>);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00042"/>00042 &#32;&#32;&#32;&#32;<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>.<link linkend="_struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26">dev_address</link>&#32;=&#32;0x38;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00043"/>00043 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00044"/>00044 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(<link linkend="_hw__aht10__func_8c_1a38378dfed4182a52c7f47bc022cb3bbc">validate_inputs</link>(argc,&#32;argv)&#32;==&#32;1)&#32;{
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00045"/>00045 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;sprintf(<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>.<link linkend="_struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432">dev_name</link>,<emphasis role="stringliteral">&quot;%s&quot;</emphasis>,&#32;argv[1]);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00046"/>00046 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>.<link linkend="_struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26">dev_address</link>&#32;=&#32;(int)strtol(argv[2],&#32;NULL,&#32;16);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00047"/>00047 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;server_port&#32;=&#32;(int)strtol(argv[3],&#32;NULL,&#32;10);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00048"/>00048 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00049"/>00049 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00050"/>00050 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;((socket_desc&#32;=&#32;<link linkend="_hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418">start_listener</link>(server_port))&#32;&lt;&#32;0)&#32;{
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00051"/>00051 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;Unable&#32;to&#32;open&#32;socket&#32;at&#32;%d&quot;</emphasis>,&#32;server_port);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00052"/>00052 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exit(-1);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00053"/>00053 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00060"/>00060 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">while</emphasis>&#32;((client_sock&#32;=&#32;accept(socket_desc,
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00061"/>00061 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(<emphasis role="keyword">struct</emphasis>&#32;sockaddr&#32;*)&amp;client_addr,
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00062"/>00062 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;(socklen_t*)&amp;client_len)))&#32;{
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00063"/>00063 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_t&#32;thread1,&#32;thread2,&#32;thread3;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00064"/>00064 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00065"/>00065 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_mutex_init(&amp;<link linkend="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>,&#32;NULL);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00066"/>00066 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_cond_init(&amp;<link linkend="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>,&#32;NULL);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00067"/>00067 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00068"/>00068 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_create(&amp;thread1,&#32;NULL,&#32;<link linkend="_hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99">read_sensor</link>,&#32;&amp;<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00069"/>00069 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_create(&amp;thread2,&#32;NULL,&#32;<link linkend="_hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887">compute_temperature</link>,&#32;&amp;<link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link>);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00070"/>00070 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_create(&amp;thread3,&#32;NULL,&#32;<link linkend="_hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd">connection_handler</link>,&#32;&amp;client_sock);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00071"/>00071 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00072"/>00072 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_join(thread1,&#32;NULL);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00073"/>00073 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_join(thread2,&#32;NULL);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00074"/>00074 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_join(thread3,&#32;NULL);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00075"/>00075 
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00076"/>00076 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_mutex_destroy(&amp;<link linkend="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link>);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00077"/>00077 &#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;pthread_cond_destroy(&amp;<link linkend="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link>);
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00078"/>00078 &#32;&#32;&#32;&#32;}
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00079"/>00079 &#32;&#32;&#32;&#32;<emphasis role="keywordflow">return</emphasis>&#32;0;
+<anchor xml:id="_hw__aht10__temperature__server_8c_source_1l00080"/>00080 }
+</programlisting></section>

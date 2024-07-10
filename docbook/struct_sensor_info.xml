@@ -1,0 +1,50 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_struct_sensor_info" xml:lang="en-US">
+<title>SensorInfo Struct Reference</title>
+<indexterm><primary>SensorInfo</primary></indexterm>
+<para>
+<computeroutput>#include &lt;hw_aht10_func.h&gt;</computeroutput>
+</para>
+<simplesect>
+    <title>Data Fields    </title>
+        <itemizedlist>
+            <listitem><para>char <link linkend="_struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432">dev_name</link> [<link linkend="_hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe">MAX_SIZE</link>]</para>
+</listitem>
+            <listitem><para>int <link linkend="_struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26">dev_address</link></para>
+</listitem>
+            <listitem><para>char <link linkend="_struct_sensor_info_1a3825e3e0922badc8848709cf608821ea">data</link> [6]</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+<para>
+Definition at line <link linkend="_hw__aht10__func_8h_source_1l00006">6</link> of file <link linkend="_hw__aht10__func_8h_source">hw_aht10_func.h</link>.</para>
+</section>
+<section>
+<title>Field Documentation</title>
+<anchor xml:id="_struct_sensor_info_1a3825e3e0922badc8848709cf608821ea"/><section>
+    <title>data</title>
+<indexterm><primary>data</primary><secondary>SensorInfo</secondary></indexterm>
+<indexterm><primary>SensorInfo</primary><secondary>data</secondary></indexterm>
+<para><computeroutput>char data[6]</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8h_source_1l00009">9</link> of file <link linkend="_hw__aht10__func_8h_source">hw_aht10_func.h</link>.</para>
+</section>
+<anchor xml:id="_struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26"/><section>
+    <title>dev_address</title>
+<indexterm><primary>dev_address</primary><secondary>SensorInfo</secondary></indexterm>
+<indexterm><primary>SensorInfo</primary><secondary>dev_address</secondary></indexterm>
+<para><computeroutput>int dev_address</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8h_source_1l00008">8</link> of file <link linkend="_hw__aht10__func_8h_source">hw_aht10_func.h</link>.</para>
+</section>
+<anchor xml:id="_struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432"/><section>
+    <title>dev_name</title>
+<indexterm><primary>dev_name</primary><secondary>SensorInfo</secondary></indexterm>
+<indexterm><primary>SensorInfo</primary><secondary>dev_name</secondary></indexterm>
+<para><computeroutput>char dev_name[<link linkend="_hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe">MAX_SIZE</link>]</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__func_8h_source_1l00007">7</link> of file <link linkend="_hw__aht10__func_8h_source">hw_aht10_func.h</link>.</para>
+</section>
+<para>
+The documentation for this struct was generated from the following file:</para>
+<link linkend="_hw__aht10__func_8h">hw_aht10_func.h</link></section>
+</section>

@@ -1,0 +1,32 @@
+\doxysection{hw\+\_\+aht10\+\_\+func.\+h}
+\hypertarget{hw__aht10__func_8h_source}{}\label{hw__aht10__func_8h_source}\mbox{\hyperlink{hw__aht10__func_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00001}00001\ \textcolor{preprocessor}{\#ifndef\ HONEYWELL\_ASSESSMENT\_HW\_AHT10\_FUNC\_H}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00002}00002\ \textcolor{preprocessor}{\#define\ HONEYWELL\_ASSESSMENT\_HW\_AHT10\_FUNC\_H}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00003}00003\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00004}\mbox{\hyperlink{hw__aht10__func_8h_a0592dba56693fad79136250c11e5a7fe}{00004}}\ \textcolor{preprocessor}{\#define\ MAX\_SIZE\ 256}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00005}00005\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00006}\mbox{\hyperlink{struct_sensor_info}{00006}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00007}\mbox{\hyperlink{struct_sensor_info_ae6eb8f25aa13f022a3e7e1e1aef61432}{00007}}\ \ \ \ \ \textcolor{keywordtype}{char}\ dev\_name[\mbox{\hyperlink{hw__aht10__func_8h_a0592dba56693fad79136250c11e5a7fe}{MAX\_SIZE}}];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00008}\mbox{\hyperlink{struct_sensor_info_a686a6aa6451bdca0449db9d921daae26}{00008}}\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{struct_sensor_info_a686a6aa6451bdca0449db9d921daae26}{dev\_address}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00009}\mbox{\hyperlink{struct_sensor_info_a3825e3e0922badc8848709cf608821ea}{00009}}\ \ \ \ \ \textcolor{keywordtype}{char}\ data[6];}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00010}00010\ \}\ \mbox{\hyperlink{struct_sensor_info}{SensorInfo}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00011}00011\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00012}00012\ \textcolor{keyword}{extern}\ \mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ \mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00013}00013\ \textcolor{keyword}{extern}\ pthread\_mutex\_t\ \mbox{\hyperlink{hw__aht10__func_8h_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00014}00014\ \textcolor{keyword}{extern}\ pthread\_cond\_t\ \mbox{\hyperlink{hw__aht10__func_8h_a0a1433271fddfed84bc959ae6c202e5a}{cond}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00015}00015\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00016}\mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c}{00016}}\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \ \{\mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2}{e\_gathering}},\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c}{e\_computing}},\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce}{e\_ready}}\}\ \mbox{\hyperlink{hw__aht10__func_8h_a8b28d3dc9e2ffd1466790ec8b8b7527a}{threads\_states}};}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00017}00017\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00018}00018\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__func_8h_a0510c487d3f24e3ccef0cd345cede814}{validate\_inputs}}(\textcolor{keywordtype}{int},\ \textcolor{keywordtype}{char}\ **);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00019}00019\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__func_8h_a813631c5173610b0390570cd076fd191}{start\_listener}}(\textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00020}00020\ \textcolor{keywordtype}{char}\ *\ \mbox{\hyperlink{hw__aht10__func_8h_ada898173c733ebfaf855421c66bb0a15}{get\_data\_from\_sensor}}(\textcolor{keywordtype}{char}\ *,\ \textcolor{keywordtype}{int});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00021}00021\ \textcolor{keywordtype}{float}\ \mbox{\hyperlink{hw__aht10__func_8h_a1c5104dd7d90660b4395af85d6948134}{compute\_temperature\_celsius}}(\textcolor{keywordtype}{char}\ *);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00022}00022\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{hw__aht10__func_8h_a1ee89972b9c42006ee4bba11ed40baf6}{send\_message}}(\textcolor{keywordtype}{int});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00023}00023\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8h_aebd3973c0794cbef6d9d36ab34005908}{read\_sensor}}(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00024}00024\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8h_a872aaccf6591b02689ba3fed2d47d590}{compute\_temperature}}(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00025}00025\ \textcolor{keywordtype}{void}\ *\mbox{\hyperlink{hw__aht10__func_8h_ad2706378d6eedf7692cb32fcdfb025b0}{connection\_handler}}(\textcolor{keywordtype}{void}\ *);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00026}00026\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__func_8h_source_l00027}00027\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//HONEYWELL\_ASSESSMENT\_HW\_AHT10\_FUNC\_H}}
+
+\end{DoxyCode}

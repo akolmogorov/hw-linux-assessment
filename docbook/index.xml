@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<book xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_index" xml:lang="en-US">
+    <info>
+    <title>Honeywell Linux Assessment</title>
+    </info>
+    <xi:include href="mainpage.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+<chapter>
+    <title>Data Structure Documentation</title>
+    <xi:include href="struct_sensor_info.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</chapter>
+<chapter>
+    <title>File Documentation</title>
+    <xi:include href="hw__aht10__func_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__func_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__func_8h.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__func_8h_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__get__temp_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__get__temp_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__temperature__server_8c.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="hw__aht10__temperature__server_8c_source.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+    <xi:include href="mainpage_8dox.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>
+</chapter>
+<index/>
+</book>

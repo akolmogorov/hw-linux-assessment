@@ -1,0 +1,74 @@
+\@ifundefined {etoctocstyle}{\let \etoc@startlocaltoc \@gobble \let \etoc@settocdepth \@gobble \let \etoc@depthtag \@gobble \let \etoc@setlocaltop \@gobble }{}
+\contentsline {chapter}{\numberline {1}Honeywell Linux Assessment Documentation}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Introduction}{1}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Yocto with Poky for Raspberry Pi}{1}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}AHT10 Temperature Sensor}{1}{subsection.1.1.2}%
+\contentsline {subsection}{\numberline {1.1.3}Client-\/\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Server Architectures in Embedded Systems}{1}{subsection.1.1.3}%
+\contentsline {section}{\numberline {1.2}Hardware setup}{2}{section.1.2}%
+\contentsline {subsection}{\numberline {1.2.1}Step 1\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}: I2C Connections}{2}{subsection.1.2.1}%
+\contentsline {section}{\numberline {1.3}Software setup}{2}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Software compilation method}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Running the app}{7}{subsection.1.4.1}%
+\contentsline {chapter}{\numberline {2}Data Structure Index}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Data Structures}{9}{section.2.1}%
+\contentsline {chapter}{\numberline {3}File Index}{11}{chapter.3}%
+\contentsline {section}{\numberline {3.1}File List}{11}{section.3.1}%
+\contentsline {chapter}{\numberline {4}Data Structure Documentation}{13}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Sensor\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}Info Struct Reference}{13}{section.4.1}%
+\contentsline {subsection}{\numberline {4.1.1}Detailed Description}{13}{subsection.4.1.1}%
+\contentsline {subsection}{\numberline {4.1.2}Field Documentation}{13}{subsection.4.1.2}%
+\contentsline {subsubsection}{\numberline {4.1.2.1}data}{13}{subsubsection.4.1.2.1}%
+\contentsline {subsubsection}{\numberline {4.1.2.2}dev\_address}{13}{subsubsection.4.1.2.2}%
+\contentsline {subsubsection}{\numberline {4.1.2.3}dev\_name}{13}{subsubsection.4.1.2.3}%
+\contentsline {chapter}{\numberline {5}File Documentation}{15}{chapter.5}%
+\contentsline {section}{\numberline {5.1}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}func.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{15}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Function Documentation}{16}{subsection.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.1.1}compute\_temperature()}{16}{subsubsection.5.1.1.1}%
+\contentsline {subsubsection}{\numberline {5.1.1.2}compute\_temperature\_celsius()}{16}{subsubsection.5.1.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.1.3}connection\_handler()}{16}{subsubsection.5.1.1.3}%
+\contentsline {subsubsection}{\numberline {5.1.1.4}get\_data\_from\_sensor()}{17}{subsubsection.5.1.1.4}%
+\contentsline {subsubsection}{\numberline {5.1.1.5}read\_sensor()}{17}{subsubsection.5.1.1.5}%
+\contentsline {subsubsection}{\numberline {5.1.1.6}send\_message()}{18}{subsubsection.5.1.1.6}%
+\contentsline {subsubsection}{\numberline {5.1.1.7}start\_listener()}{18}{subsubsection.5.1.1.7}%
+\contentsline {subsubsection}{\numberline {5.1.1.8}validate\_inputs()}{19}{subsubsection.5.1.1.8}%
+\contentsline {subsection}{\numberline {5.1.2}Variable Documentation}{19}{subsection.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.1}cond}{19}{subsubsection.5.1.2.1}%
+\contentsline {subsubsection}{\numberline {5.1.2.2}data\_ready}{19}{subsubsection.5.1.2.2}%
+\contentsline {subsubsection}{\numberline {5.1.2.3}mutex}{19}{subsubsection.5.1.2.3}%
+\contentsline {subsubsection}{\numberline {5.1.2.4}temperature}{19}{subsubsection.5.1.2.4}%
+\contentsline {section}{\numberline {5.2}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}func.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{19}{section.5.2}%
+\contentsline {section}{\numberline {5.3}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}func.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h File Reference}{22}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Macro Definition Documentation}{22}{subsection.5.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.1.1}MAX\_SIZE}{22}{subsubsection.5.3.1.1}%
+\contentsline {subsection}{\numberline {5.3.2}Enumeration Type Documentation}{23}{subsection.5.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.2.1}threads\_states}{23}{subsubsection.5.3.2.1}%
+\contentsline {subsection}{\numberline {5.3.3}Function Documentation}{23}{subsection.5.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.3.1}compute\_temperature()}{23}{subsubsection.5.3.3.1}%
+\contentsline {subsubsection}{\numberline {5.3.3.2}compute\_temperature\_celsius()}{23}{subsubsection.5.3.3.2}%
+\contentsline {subsubsection}{\numberline {5.3.3.3}connection\_handler()}{24}{subsubsection.5.3.3.3}%
+\contentsline {subsubsection}{\numberline {5.3.3.4}get\_data\_from\_sensor()}{24}{subsubsection.5.3.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.3.5}read\_sensor()}{25}{subsubsection.5.3.3.5}%
+\contentsline {subsubsection}{\numberline {5.3.3.6}send\_message()}{25}{subsubsection.5.3.3.6}%
+\contentsline {subsubsection}{\numberline {5.3.3.7}start\_listener()}{26}{subsubsection.5.3.3.7}%
+\contentsline {subsubsection}{\numberline {5.3.3.8}validate\_inputs()}{26}{subsubsection.5.3.3.8}%
+\contentsline {subsection}{\numberline {5.3.4}Variable Documentation}{26}{subsection.5.3.4}%
+\contentsline {subsubsection}{\numberline {5.3.4.1}cond}{26}{subsubsection.5.3.4.1}%
+\contentsline {subsubsection}{\numberline {5.3.4.2}mutex}{26}{subsubsection.5.3.4.2}%
+\contentsline {subsubsection}{\numberline {5.3.4.3}sensor\_info}{26}{subsubsection.5.3.4.3}%
+\contentsline {section}{\numberline {5.4}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}func.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}h}{26}{section.5.4}%
+\contentsline {section}{\numberline {5.5}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}get\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}temp.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{27}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Function Documentation}{27}{subsection.5.5.1}%
+\contentsline {subsubsection}{\numberline {5.5.1.1}get\_temperature\_celsius()}{27}{subsubsection.5.5.1.1}%
+\contentsline {subsubsection}{\numberline {5.5.1.2}main()}{28}{subsubsection.5.5.1.2}%
+\contentsline {subsubsection}{\numberline {5.5.1.3}validate\_inputs()}{28}{subsubsection.5.5.1.3}%
+\contentsline {section}{\numberline {5.6}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}get\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}temp.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{28}{section.5.6}%
+\contentsline {section}{\numberline {5.7}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}temperature\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c File Reference}{30}{section.5.7}%
+\contentsline {subsection}{\numberline {5.7.1}Function Documentation}{30}{subsection.5.7.1}%
+\contentsline {subsubsection}{\numberline {5.7.1.1}main()}{30}{subsubsection.5.7.1.1}%
+\contentsline {subsection}{\numberline {5.7.2}Variable Documentation}{31}{subsection.5.7.2}%
+\contentsline {subsubsection}{\numberline {5.7.2.1}cond}{31}{subsubsection.5.7.2.1}%
+\contentsline {subsubsection}{\numberline {5.7.2.2}mutex}{32}{subsubsection.5.7.2.2}%
+\contentsline {subsubsection}{\numberline {5.7.2.3}sensor\_info}{32}{subsubsection.5.7.2.3}%
+\contentsline {section}{\numberline {5.8}hw\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}aht10\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}temperature\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}\_\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}server.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}c}{32}{section.5.8}%
+\contentsline {section}{\numberline {5.9}mainpage.\discretionary {\mbox {\scriptsize $\hookleftarrow $}}{}{}dox File Reference}{32}{section.5.9}%
+\contentsline {chapter}{Index}{33}{section*.42}%

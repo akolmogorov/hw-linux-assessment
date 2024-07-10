@@ -1,0 +1,346 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<doxygen xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="compound.xsd" version="1.11.0" xml:lang="en-US">
+  <compounddef id="hw__aht10__func_8h" kind="file" language="C++">
+    <compoundname>hw_aht10_func.h</compoundname>
+    <includedby refid="hw__aht10__func_8c" local="yes">hw_aht10_func.c</includedby>
+    <includedby refid="hw__aht10__temperature__server_8c" local="yes">hw_aht10_temperature_server.c</includedby>
+    <invincdepgraph>
+      <node id="2">
+        <label>hw_aht10_func.c</label>
+        <link refid="hw__aht10__func_8c"/>
+      </node>
+      <node id="1">
+        <label>hw_aht10_func.h</label>
+        <link refid="hw__aht10__func_8h"/>
+        <childnode refid="2" relation="include">
+        </childnode>
+        <childnode refid="3" relation="include">
+        </childnode>
+      </node>
+      <node id="3">
+        <label>hw_aht10_temperature_server.c</label>
+        <link refid="hw__aht10__temperature__server_8c"/>
+      </node>
+    </invincdepgraph>
+    <innerclass refid="struct_sensor_info" prot="public">SensorInfo</innerclass>
+    <sectiondef kind="define">
+      <memberdef kind="define" id="hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe" prot="public" static="no">
+        <name>MAX_SIZE</name>
+        <initializer>256</initializer>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="4" column="9" bodyfile="hw_aht10_func.h" bodystart="4" bodyend="-1"/>
+        <referencedby refid="hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6" compoundref="hw__aht10__func_8c" startline="168" endline="173">send_message</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1abda8902249ce8fe3237e7afb91554418" compoundref="hw__aht10__func_8c" startline="111" endline="134">start_listener</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="enum">
+      <memberdef kind="enum" id="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527a" prot="public" static="no" strong="no">
+        <type></type>
+        <name>threads_states</name>
+        <enumvalue id="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2" prot="public">
+          <name>e_gathering</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c" prot="public">
+          <name>e_computing</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <enumvalue id="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce" prot="public">
+          <name>e_ready</name>
+          <briefdescription>
+          </briefdescription>
+          <detaileddescription>
+          </detaileddescription>
+        </enumvalue>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="16" column="1" bodyfile="hw_aht10_func.h" bodystart="16" bodyend="16"/>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="var">
+      <memberdef kind="variable" id="hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f" prot="public" static="no" extern="yes" mutable="no">
+        <type><ref refid="struct_sensor_info" kindref="compound">SensorInfo</ref></type>
+        <definition>SensorInfo sensor_info</definition>
+        <argsstring></argsstring>
+        <name>sensor_info</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Sensor information structure </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="12" column="19" bodyfile="hw_aht10_temperature_server.c" bodystart="12" bodyend="-1" declfile="hw_aht10_func.h" declline="12" declcolumn="19"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="hw__aht10__func_8h_1a4acff8232e4aec9cd5c6dc200ac55ef3" prot="public" static="no" extern="yes" mutable="no">
+        <type>pthread_mutex_t</type>
+        <definition>pthread_mutex_t mutex</definition>
+        <argsstring></argsstring>
+        <name>mutex</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Mutex for thread synchronization (prevents deadlocks) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="13" column="24" bodyfile="hw_aht10_func.c" bodystart="14" bodyend="-1" declfile="hw_aht10_func.h" declline="13" declcolumn="24"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd" compoundref="hw__aht10__func_8c" startline="175" endline="189">connection_handler</referencedby>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+      <memberdef kind="variable" id="hw__aht10__func_8h_1a0a1433271fddfed84bc959ae6c202e5a" prot="public" static="no" extern="yes" mutable="no">
+        <type>pthread_cond_t</type>
+        <definition>pthread_cond_t cond</definition>
+        <argsstring></argsstring>
+        <name>cond</name>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+<para>Condition variable for thread synchronization (prevents race conditions) </para>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="14" column="23" bodyfile="hw_aht10_func.c" bodystart="15" bodyend="-1" declfile="hw_aht10_func.h" declline="14" declcolumn="23"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd" compoundref="hw__aht10__func_8c" startline="175" endline="189">connection_handler</referencedby>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+    </sectiondef>
+    <sectiondef kind="func">
+      <memberdef kind="function" id="hw__aht10__func_8h_1a0510c487d3f24e3ccef0cd345cede814" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int validate_inputs</definition>
+        <argsstring>(int, char **)</argsstring>
+        <name>validate_inputs</name>
+        <param>
+          <type>int</type>
+          <declname>argc</declname>
+        </param>
+        <param>
+          <type>char **</type>
+          <declname>argv</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="18" column="5" bodyfile="hw_aht10_func.c" bodystart="19" bodyend="39" declfile="hw_aht10_func.h" declline="18" declcolumn="5"/>
+        <referencedby refid="hw__aht10__get__temp_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__get__temp_8c" startline="12" endline="24">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1a813631c5173610b0390570cd076fd191" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>int</type>
+        <definition>int start_listener</definition>
+        <argsstring>(unsigned short)</argsstring>
+        <name>start_listener</name>
+        <param>
+          <type>unsigned short</type>
+          <declname>port</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="19" column="5" bodyfile="hw_aht10_func.c" bodystart="111" bodyend="134" declfile="hw_aht10_func.h" declline="19" declcolumn="5"/>
+        <references refid="hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe" compoundref="hw__aht10__func_8h" startline="4">MAX_SIZE</references>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1ada898173c733ebfaf855421c66bb0a15" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>char *</type>
+        <definition>char * get_data_from_sensor</definition>
+        <argsstring>(char *, int)</argsstring>
+        <name>get_data_from_sensor</name>
+        <param>
+          <type>char *</type>
+          <declname>device_name</declname>
+        </param>
+        <param>
+          <type>int</type>
+          <declname>dev_addr</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="20" column="7" bodyfile="hw_aht10_func.c" bodystart="41" bodyend="101" declfile="hw_aht10_func.h" declline="20" declcolumn="7"/>
+        <referencedby refid="hw__aht10__func_8c_1a1d3c5e7b97293a261f2d5d65b0381f99" compoundref="hw__aht10__func_8c" startline="136" endline="150">read_sensor</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1a1c5104dd7d90660b4395af85d6948134" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>float</type>
+        <definition>float compute_temperature_celsius</definition>
+        <argsstring>(char *)</argsstring>
+        <name>compute_temperature_celsius</name>
+        <param>
+          <type>char *</type>
+          <declname>data</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="21" column="7" bodyfile="hw_aht10_func.c" bodystart="103" bodyend="109" declfile="hw_aht10_func.h" declline="21" declcolumn="7"/>
+        <referencedby refid="hw__aht10__func_8c_1ac9f341db97b3e25e49a864893ba74887" compoundref="hw__aht10__func_8c" startline="152" endline="166">compute_temperature</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1a1ee89972b9c42006ee4bba11ed40baf6" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void</type>
+        <definition>void send_message</definition>
+        <argsstring>(int)</argsstring>
+        <name>send_message</name>
+        <param>
+          <type>int</type>
+          <declname>client_socket</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="22" column="6" bodyfile="hw_aht10_func.c" bodystart="168" bodyend="173" declfile="hw_aht10_func.h" declline="22" declcolumn="6"/>
+        <references refid="hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe" compoundref="hw__aht10__func_8h" startline="4">MAX_SIZE</references>
+        <references refid="hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5" compoundref="hw__aht10__func_8c" startline="17">temperature</references>
+        <referencedby refid="hw__aht10__func_8c_1a96682aabf7079f9a0c2f6379775726dd" compoundref="hw__aht10__func_8c" startline="175" endline="189">connection_handler</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1aebd3973c0794cbef6d9d36ab34005908" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * read_sensor</definition>
+        <argsstring>(void *)</argsstring>
+        <name>read_sensor</name>
+        <param>
+          <type>void *</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="23" column="6" bodyfile="hw_aht10_func.c" bodystart="136" bodyend="150" declfile="hw_aht10_func.h" declline="23" declcolumn="6"/>
+        <references refid="hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a" compoundref="hw__aht10__func_8c" startline="15">cond</references>
+        <references refid="struct_sensor_info_1a3825e3e0922badc8848709cf608821ea" compoundref="hw__aht10__func_8h" startline="9">SensorInfo::data</references>
+        <references refid="hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805" compoundref="hw__aht10__func_8c" startline="16">data_ready</references>
+        <references refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" compoundref="hw__aht10__func_8h" startline="8">SensorInfo::dev_address</references>
+        <references refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" compoundref="hw__aht10__func_8h" startline="7">SensorInfo::dev_name</references>
+        <references refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c" compoundref="hw__aht10__func_8h" startline="16">e_computing</references>
+        <references refid="hw__aht10__func_8c_1a0524ee8ae6eb364f6eb02d07d6d941e5" compoundref="hw__aht10__func_8c" startline="41" endline="101">get_data_from_sensor</references>
+        <references refid="hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" compoundref="hw__aht10__func_8c" startline="14">mutex</references>
+        <references refid="hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f" compoundref="hw__aht10__temperature__server_8c" startline="12">sensor_info</references>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1a872aaccf6591b02689ba3fed2d47d590" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * compute_temperature</definition>
+        <argsstring>(void *)</argsstring>
+        <name>compute_temperature</name>
+        <param>
+          <type>void *</type>
+          <declname>arg</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="24" column="6" bodyfile="hw_aht10_func.c" bodystart="152" bodyend="166" declfile="hw_aht10_func.h" declline="24" declcolumn="6"/>
+        <references refid="hw__aht10__func_8c_1ad8be852f92bde19aeb01e6aa0f05b505" compoundref="hw__aht10__func_8c" startline="103" endline="109">compute_temperature_celsius</references>
+        <references refid="hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a" compoundref="hw__aht10__func_8c" startline="15">cond</references>
+        <references refid="struct_sensor_info_1a3825e3e0922badc8848709cf608821ea" compoundref="hw__aht10__func_8h" startline="9">SensorInfo::data</references>
+        <references refid="hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805" compoundref="hw__aht10__func_8c" startline="16">data_ready</references>
+        <references refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c" compoundref="hw__aht10__func_8h" startline="16">e_computing</references>
+        <references refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce" compoundref="hw__aht10__func_8h" startline="16">e_ready</references>
+        <references refid="hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" compoundref="hw__aht10__func_8c" startline="14">mutex</references>
+        <references refid="hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f" compoundref="hw__aht10__temperature__server_8c" startline="12">sensor_info</references>
+        <references refid="hw__aht10__func_8c_1afc1d28cfbce795d6ea954ebe725241f5" compoundref="hw__aht10__func_8c" startline="17">temperature</references>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+      <memberdef kind="function" id="hw__aht10__func_8h_1ad2706378d6eedf7692cb32fcdfb025b0" prot="public" static="no" const="no" explicit="no" inline="no" virt="non-virtual">
+        <type>void *</type>
+        <definition>void * connection_handler</definition>
+        <argsstring>(void *)</argsstring>
+        <name>connection_handler</name>
+        <param>
+          <type>void *</type>
+          <declname>socket_desc</declname>
+        </param>
+        <briefdescription>
+        </briefdescription>
+        <detaileddescription>
+        </detaileddescription>
+        <inbodydescription>
+        </inbodydescription>
+        <location file="hw_aht10_func.h" line="25" column="6" bodyfile="hw_aht10_func.c" bodystart="175" bodyend="189" declfile="hw_aht10_func.h" declline="25" declcolumn="6"/>
+        <references refid="hw__aht10__func_8c_1a0a1433271fddfed84bc959ae6c202e5a" compoundref="hw__aht10__func_8c" startline="15">cond</references>
+        <references refid="hw__aht10__func_8c_1aac78fc5f81ed7c25e64461b2902e7805" compoundref="hw__aht10__func_8c" startline="16">data_ready</references>
+        <references refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2" compoundref="hw__aht10__func_8h" startline="16">e_gathering</references>
+        <references refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce" compoundref="hw__aht10__func_8h" startline="16">e_ready</references>
+        <references refid="hw__aht10__func_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3" compoundref="hw__aht10__func_8c" startline="14">mutex</references>
+        <references refid="hw__aht10__func_8c_1aeb7334c25e39bfab2260a227e22446a6" compoundref="hw__aht10__func_8c" startline="168" endline="173">send_message</references>
+        <referencedby refid="hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627" compoundref="hw__aht10__temperature__server_8c" startline="26" endline="80">main</referencedby>
+      </memberdef>
+    </sectiondef>
+    <briefdescription>
+    </briefdescription>
+    <detaileddescription>
+    </detaileddescription>
+    <programlisting>
+<codeline lineno="1"><highlight class="preprocessor">#ifndef<sp/>HONEYWELL_ASSESSMENT_HW_AHT10_FUNC_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="2"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>HONEYWELL_ASSESSMENT_HW_AHT10_FUNC_H</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="3"><highlight class="normal"></highlight></codeline>
+<codeline lineno="4" refid="hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe" refkind="member"><highlight class="normal"></highlight><highlight class="preprocessor">#define<sp/>MAX_SIZE<sp/>256</highlight><highlight class="normal"></highlight></codeline>
+<codeline lineno="5"><highlight class="normal"></highlight></codeline>
+<codeline lineno="6" refid="struct_sensor_info" refkind="compound"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">struct<sp/></highlight><highlight class="normal">{</highlight></codeline>
+<codeline lineno="7" refid="struct_sensor_info_1ae6eb8f25aa13f022a3e7e1e1aef61432" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>dev_name[<ref refid="hw__aht10__func_8h_1a0592dba56693fad79136250c11e5a7fe" kindref="member">MAX_SIZE</ref>];</highlight></codeline>
+<codeline lineno="8" refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="struct_sensor_info_1a686a6aa6451bdca0449db9d921daae26" kindref="member">dev_address</ref>;</highlight></codeline>
+<codeline lineno="9" refid="struct_sensor_info_1a3825e3e0922badc8848709cf608821ea" refkind="member"><highlight class="normal"><sp/><sp/><sp/><sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>data[6];</highlight></codeline>
+<codeline lineno="10"><highlight class="normal">}<sp/><ref refid="struct_sensor_info" kindref="compound">SensorInfo</ref>;</highlight></codeline>
+<codeline lineno="11"><highlight class="normal"></highlight></codeline>
+<codeline lineno="12"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/><ref refid="struct_sensor_info" kindref="compound">SensorInfo</ref><sp/><ref refid="hw__aht10__func_8h_1adb6ca112d7f517a7f4f44fbdafe1356f" kindref="member">sensor_info</ref>;</highlight></codeline>
+<codeline lineno="13"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>pthread_mutex_t<sp/><ref refid="hw__aht10__func_8h_1a4acff8232e4aec9cd5c6dc200ac55ef3" kindref="member">mutex</ref>;</highlight></codeline>
+<codeline lineno="14"><highlight class="normal"></highlight><highlight class="keyword">extern</highlight><highlight class="normal"><sp/>pthread_cond_t<sp/><ref refid="hw__aht10__func_8h_1a0a1433271fddfed84bc959ae6c202e5a" kindref="member">cond</ref>;</highlight></codeline>
+<codeline lineno="15"><highlight class="normal"></highlight></codeline>
+<codeline lineno="16" refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c" refkind="member"><highlight class="normal"></highlight><highlight class="keyword">typedef</highlight><highlight class="normal"><sp/></highlight><highlight class="keyword">enum</highlight><highlight class="normal"><sp/><sp/>{<ref refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2" kindref="member">e_gathering</ref>,<sp/><ref refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c" kindref="member">e_computing</ref>,<sp/><ref refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce" kindref="member">e_ready</ref>}<sp/><ref refid="hw__aht10__func_8h_1a8b28d3dc9e2ffd1466790ec8b8b7527a" kindref="member">threads_states</ref>;</highlight></codeline>
+<codeline lineno="17"><highlight class="normal"></highlight></codeline>
+<codeline lineno="18"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hw__aht10__func_8h_1a0510c487d3f24e3ccef0cd345cede814" kindref="member">validate_inputs</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">,<sp/></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>**);</highlight></codeline>
+<codeline lineno="19"><highlight class="normal"></highlight><highlight class="keywordtype">int</highlight><highlight class="normal"><sp/><ref refid="hw__aht10__func_8h_1a813631c5173610b0390570cd076fd191" kindref="member">start_listener</ref>(</highlight><highlight class="keywordtype">unsigned</highlight><highlight class="normal"><sp/></highlight><highlight class="keywordtype">short</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="20"><highlight class="normal"></highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*<sp/><ref refid="hw__aht10__func_8h_1ada898173c733ebfaf855421c66bb0a15" kindref="member">get_data_from_sensor</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*,<sp/></highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="21"><highlight class="normal"></highlight><highlight class="keywordtype">float</highlight><highlight class="normal"><sp/><ref refid="hw__aht10__func_8h_1a1c5104dd7d90660b4395af85d6948134" kindref="member">compute_temperature_celsius</ref>(</highlight><highlight class="keywordtype">char</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="22"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/><ref refid="hw__aht10__func_8h_1a1ee89972b9c42006ee4bba11ed40baf6" kindref="member">send_message</ref>(</highlight><highlight class="keywordtype">int</highlight><highlight class="normal">);</highlight></codeline>
+<codeline lineno="23"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="hw__aht10__func_8h_1aebd3973c0794cbef6d9d36ab34005908" kindref="member">read_sensor</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="24"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="hw__aht10__func_8h_1a872aaccf6591b02689ba3fed2d47d590" kindref="member">compute_temperature</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="25"><highlight class="normal"></highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*<ref refid="hw__aht10__func_8h_1ad2706378d6eedf7692cb32fcdfb025b0" kindref="member">connection_handler</ref>(</highlight><highlight class="keywordtype">void</highlight><highlight class="normal"><sp/>*);</highlight></codeline>
+<codeline lineno="26"><highlight class="normal"></highlight></codeline>
+<codeline lineno="27"><highlight class="normal"></highlight><highlight class="preprocessor">#endif<sp/></highlight><highlight class="comment">//HONEYWELL_ASSESSMENT_HW_AHT10_FUNC_H</highlight><highlight class="normal"></highlight></codeline>
+    </programlisting>
+    <location file="hw_aht10_func.h"/>
+  </compounddef>
+</doxygen>

@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__aht10__temperature__server_8c" xml:lang="en-US">
+<title>hw_aht10_temperature_server.c File Reference</title>
+<indexterm><primary>hw_aht10_temperature_server.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;pthread.h&gt;<?linebreak?>#include &lt;arpa/inet.h&gt;<?linebreak?>#include &lt;sys/ioctl.h&gt;<?linebreak?>#include &lt;sys/socket.h&gt;<?linebreak?>#include &quot;hw_aht10_func.h&quot;<?linebreak?></programlisting>Include dependency graph for hw_aht10_temperature_server.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__temperature__server_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627">main</link> (int argc, char **argv)</para>
+
+<para>In this section the TCP server binds connections with clients using threads for:<?linebreak?>. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Variables    </title>
+        <itemizedlist>
+            <listitem><para>pthread_mutex_t <link linkend="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3">mutex</link></para>
+</listitem>
+            <listitem><para>pthread_cond_t <link linkend="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a">cond</link></para>
+</listitem>
+            <listitem><para><link linkend="_struct_sensor_info">SensorInfo</link> <link linkend="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f">sensor_info</link></para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_hw__aht10__temperature__server_8c_1a3c04138a5bfe5d72780bb7e82a18e627"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>hw_aht10_temperature_server.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_temperature_server.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main (int argc, char ** argv)</computeroutput></para><para>
+
+<para>In this section the TCP server binds connections with clients using threads for:<?linebreak?>. </para>
+</para>
+
+<para><itemizedlist>
+<listitem>
+<para>1) Getting data from AHT10 sensor<?linebreak?></para>
+</listitem><listitem>
+<para>2) Computing the current temperature, and <?linebreak?></para>
+</listitem><listitem>
+<para>3) Attending new temperature requests via TCP.</para>
+</listitem></itemizedlist>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>argc</entry><entry>
+<para>Argument count </para>
+</entry>
+                            </row>
+                            <row>
+<entry>argv</entry><entry>
+<para>Argument vector </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <formalpara><title>Returns</title>
+
+<para>Exit status </para>
+</formalpara>
+</para>
+
+<para>TCP port is 5000 by default</para>
+
+<para>Default values for I2C hardware:<itemizedlist>
+<listitem>
+<para>The device name by default is the file descriptor we found at /dev/i2c-1 and,</para>
+</listitem><listitem>
+<para>The device address for the AHT10 sensor is 0x38.<?linebreak?><?linebreak?></para>
+</listitem></itemizedlist>
+</para>
+
+<para>NOTE: These values can be modified according to the connected sensor and the board when executing the program via the parameter <emphasis>argv</emphasis>.</para>
+
+<para>Main loop:<itemizedlist>
+<listitem>
+<para>Once a client connection is accepted, three threads are created as mentioned above including the mutex and cond sections for <emphasis role="bold">avoiding race conditions and/or deadlocks</emphasis>.</para>
+</listitem></itemizedlist>
+</para>
+<para>
+Definition at line <link linkend="_hw__aht10__temperature__server_8c_source_1l00026">26</link> of file <link linkend="_hw__aht10__temperature__server_8c_source">hw_aht10_temperature_server.c</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+<section>
+<title>Variable Documentation</title>
+<anchor xml:id="_hw__aht10__temperature__server_8c_1a0a1433271fddfed84bc959ae6c202e5a"/><section>
+    <title>cond</title>
+<indexterm><primary>cond</primary><secondary>hw_aht10_temperature_server.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_temperature_server.c</primary><secondary>cond</secondary></indexterm>
+<para><computeroutput>pthread_cond_t cond</computeroutput></para>
+<para>Condition variable for thread synchronization (prevents race conditions) </para>
+<para>
+Definition at line <link linkend="_hw__aht10__temperature__server_8c_source_1l00011">11</link> of file <link linkend="_hw__aht10__temperature__server_8c_source">hw_aht10_temperature_server.c</link>.</para>
+</section>
+<anchor xml:id="_hw__aht10__temperature__server_8c_1a4acff8232e4aec9cd5c6dc200ac55ef3"/><section>
+    <title>mutex</title>
+<indexterm><primary>mutex</primary><secondary>hw_aht10_temperature_server.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_temperature_server.c</primary><secondary>mutex</secondary></indexterm>
+<para><computeroutput>pthread_mutex_t mutex</computeroutput></para>
+<para>Mutex for thread synchronization (prevents deadlocks) </para>
+<para>
+Definition at line <link linkend="_hw__aht10__temperature__server_8c_source_1l00010">10</link> of file <link linkend="_hw__aht10__temperature__server_8c_source">hw_aht10_temperature_server.c</link>.</para>
+</section>
+<anchor xml:id="_hw__aht10__temperature__server_8c_1adb6ca112d7f517a7f4f44fbdafe1356f"/><section>
+    <title>sensor_info</title>
+<indexterm><primary>sensor_info</primary><secondary>hw_aht10_temperature_server.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_temperature_server.c</primary><secondary>sensor_info</secondary></indexterm>
+<para><computeroutput><link linkend="_struct_sensor_info">SensorInfo</link> sensor_info</computeroutput></para>
+<para>Sensor information structure </para>
+<para>
+Definition at line <link linkend="_hw__aht10__temperature__server_8c_source_1l00012">12</link> of file <link linkend="_hw__aht10__temperature__server_8c_source">hw_aht10_temperature_server.c</link>.</para>
+</section>
+</section>
+</section>

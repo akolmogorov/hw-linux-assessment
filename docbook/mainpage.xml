@@ -1,0 +1,245 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<chapter xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_mainpage" xml:lang="en-US">
+<title>Honeywell Linux Assessment Documentation</title>
+<indexterm><primary>Honeywell Linux Assessment Documentation</primary></indexterm>
+<section xml:id="_index_1intro_sec">
+<title>Introduction</title>
+<para>The test consisted of creating an application for a temperature sensor connected to an embedded Linux development board.</para>
+
+<para><emphasis role="bold">DISCLAIMER</emphasis>:<?linebreak?> As a candidate for Senior Advanced Embedded Engineer position I decided to carry<?linebreak?> this project to the physical implementation, meaning that all the hardware and<?linebreak?> software cited in here was tested in the loop by me (Mauricio Gutierrez).</para>
+<section xml:id="_index_1yocto_poky">
+<title>Yocto with Poky for Raspberry Pi</title>
+<para>Yocto is an open-source project that allows the creation of custom Linux systems for embedded devices. Poky is the reference build system in Yocto, providing the tools and metadata necessary to create Linux images. Using Yocto with Poky on a Raspberry Pi allows for the creation of a highly customized and optimized operating system for specific applications.</para>
+</section>
+<section xml:id="_index_1aht10_sensor">
+<title>AHT10 Temperature Sensor</title>
+<para>The AHT10 is a high-precision temperature and humidity sensor widely used in embedded applications. It offers a simple I2C interface for communication with microcontrollers and embedded systems. This project uses the AHT10 to measure ambient temperature and send this data over a TCP/IP network.</para>
+</section>
+<section xml:id="_index_1server_client">
+<title>Client-Server Architectures in Embedded Systems</title>
+<para>Client-server architectures are fundamental in data communication in embedded systems. In this project, an embedded server on the Raspberry Pi communicates with multiple clients to provide real-time temperature data. The server manages TCP connections and uses threads to handle client requests and data acquisition from the AHT10 sensor.</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+ </para>
+</section>
+</section>
+<section xml:id="_index_1hw_setup">
+<title>Hardware setup</title><section xml:id="_index_1step1">
+<title>Step 1: I2C Connections</title>
+<para>  AHT10 temperature sensor has a I2C interface for communication with only 4 pins:<itemizedlist>
+<listitem>
+<para>VIN (5v Power)</para>
+</listitem><listitem>
+<para>GND (Ground)</para>
+</listitem><listitem>
+<para>SCL (GPIO 3 Clock)</para>
+</listitem><listitem>
+<para>SDA (GPIO 2 Data)</para>
+</listitem></itemizedlist>
+</para>
+
+<para>Which can be directly connected to IC2 pins on Raspberry Pi 3B+ (model used for this project):  </para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+</section>
+<section xml:id="_index_1sw_setup">
+<title>Software setup</title>
+<para>We decided to use Poky <emphasis>meta-raspberrypi layer</emphasis> with Yocto (dunfell release) to build our custom image for Raspberry Pi 3 B+ (BCM2837 processor).</para>
+
+<para> </para>
+
+<para>Adding i2d_dev to /etc/modules yields:</para>
+
+<para># modprobe -v -n -D i2c_dev <?linebreak?> # insmod /lib/modules/5.4.72-v8/drivers/i2c/i2c-dev.ko</para>
+
+<para>Editing the file poky/build/conf/local.conf file to configure enabling I2C during boot.  </para>
+
+<para>Rebuiding Yocto:</para>
+
+<para> </para>
+
+<para>Output found at <?linebreak?> /build/tmp/deploy/images/raspberrypi3-64/bootfiles/config.txt</para>
+
+<para> </para>
+
+<para>While I2C device is now present and correctly loaded at /dev/, we want the development tools to start programming by adding the following line in the Yocto configuration file.</para>
+
+<para>  <?linebreak?>  </para>
+
+<para>We can see that now i2ctransfer is working by executing:</para>
+
+<para>Handshaking:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>i2ctransfer -y 1 w3@0x38 0xE1 0x33 0x00 r6</para>
+</listitem></itemizedlist>
+</para>
+
+<para>Data request:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>i2ctransfer -y 1 w3@0x38 0xac 0x33 0x00 r6</para>
+</listitem></itemizedlist>
+</para>
+
+<para> </para>
+
+<para>Conditioning of the signal according to AHT10 datasheet:</para>
+
+<para>   </para>
+
+<para>After making threads for<itemizedlist>
+<listitem>
+<para>1) data gathering,</para>
+</listitem><listitem>
+<para>2) data processing and</para>
+</listitem><listitem>
+<para>3) service requesting,</para>
+</listitem></itemizedlist>
+</para>
+
+<para>this is the console output:</para>
+
+<para> </para>
+
+<para>On the left side of the console, we can see the silent server working at port 5000. On the right we can see the request to the server by using telnet as client. We double checked the correct behavior by using another external client application called Hercules:</para>
+
+<para> </para>
+
+<para>For watchdog purposes, we need to add the package in Yocto and rebuild the image again with Systemd enbaled:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>DISTRO_FEATURES:append = &quot; systemd&quot;</para>
+</listitem><listitem>
+<para>DISTRO_FEATURES_BACKFILL_CONSIDERED += &quot;sysvinit&quot;</para>
+</listitem><listitem>
+<para>VIRTUAL-RUNTIME_init_manager = &quot;systemd&quot;</para>
+</listitem><listitem>
+<para>VIRTUAL-RUNTIME_initscripts = &quot;systemd-compat-units&quot;</para>
+</listitem><listitem>
+<para>INIT_MANAGER = &quot;systemd&quot;</para>
+</listitem></itemizedlist>
+</para>
+
+<para>A Systemd service was designed to automatically start the application after the user level (3) is reached. As per project requirements (5, 6), the application will be restarted after 20 seconds if it crashed, killed or closed, as shown below:</para>
+
+<para>  _  </para>
+
+<para>After reboot we can see the service is active and correctly working:</para>
+
+<para>   </para>
+
+<para>Finally, we configure the watchdog to monitor the &quot;real-time&quot; system. If the board load goes above the &apos;24&apos; parameter the system will automatically reboot.</para>
+
+<para><itemizedlist>
+<listitem>
+<para>echo &apos;dtparam=watchdog=on&apos; &gt;&gt; /boot/config.txt</para>
+</listitem></itemizedlist>
+</para>
+
+<para>If the system doesn&apos;t respond during over 15 seconds, the hardware watchdog signal will reboot the OS.</para>
+
+<para><itemizedlist>
+<listitem>
+<para>vim /etc/watchdog.conf</para>
+</listitem></itemizedlist>
+</para>
+
+<para> </para>
+
+<para><itemizedlist>
+<listitem>
+<para>systemctl enable watchdog</para>
+</listitem></itemizedlist>
+</para>
+
+<para>After correctly configuring the board&apos;s watchdog we can enable the WD service via Systemd, as showed below:</para>
+
+<para> </para>
+
+<para>We ran the famous fork bomb to test it:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>bash -c &apos;:(){ :|:&amp; };:&apos;</para>
+</listitem></itemizedlist>
+</para>
+
+<para>After the fork bomb exploited the system frozen during 15 seconds proximately and the automatically restarted.</para>
+
+<para> </para>
+
+<para>This covers the 6th and last requirement from the Honeywell Linux Assessment.</para>
+
+<para><informaltable frame='bottom'><tgroup cols='1'><colspec align='center'/><tbody><row><entry align='center'>
+</entry></row></tbody></tgroup></informaltable>
+</para>
+</section>
+<section xml:id="_index_1sw_compile">
+<title>Software compilation method</title>
+<para>For this project (assessment) we designed, developed and built 2 applications:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>A HAL application that is able to call from user space the I2C kernel functions, and</para>
+</listitem><listitem>
+<para>A TCP multithreading server that gets sensor data, transform data to a lecture and attend incoming requests for temperature service subscribers.</para>
+</listitem></itemizedlist>
+</para>
+
+<para>Since Raspberry Pi 3B+ board has enough computational resources, we decided to do not crosscompile but compile the sources directly in the board.</para>
+
+<para>In this regard, the command to compile is:</para>
+
+<para>for HAL application:</para>
+
+<para><itemizedlist>
+<listitem>
+<para><emphasis> gcc <link linkend="_hw__aht10__get__temp_8c">hw_aht10_get_temp.c</link> - o hw_aht10_get_temp </emphasis></para>
+</listitem></itemizedlist>
+</para>
+
+<para>for TCP server application:</para>
+
+<para><itemizedlist>
+<listitem>
+<para><emphasis> gcc -pthread <link linkend="_hw__aht10__temperature__server_8c">hw_aht10_temperature_server.c</link> <link linkend="_hw__aht10__func_8c">hw_aht10_func.c</link> -o hw_aht10_temperature_server </emphasis></para>
+</listitem></itemizedlist>
+</para>
+<section xml:id="_index_1run_app">
+<title>Running the app</title>
+<para>Both applications can run with parameter, however for the HAL application the parameters are madatory:</para>
+
+<para><itemizedlist>
+<listitem>
+<para>Usage: ./hw_aht10_get_temp device_name device_address</para>
+</listitem><listitem>
+<para>e.g.:&#160;&#160;&#160;&#160; ./hw_aht10_get_temp /dev/i2c-1 0x38</para>
+</listitem></itemizedlist>
+</para>
+
+<para>This allows the possibility the change/update the sensor without changing the source code.</para>
+
+<para>On the other hand, the TCP server application can run with or without parameters.</para>
+
+<para><itemizedlist>
+<listitem>
+<para>Usage:&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160; ./hw_aht10_temperature_server device_name device_address port</para>
+</listitem><listitem>
+<para>e.g. (default) ./hw_aht10_temperature_server /dev/i2c-1 0x38 5000</para>
+</listitem></itemizedlist>
+</para>
+
+<para>This means that the default values are the I2C descriptor 1, the default addres for AHT10 sensor and TCP Port 5000.</para>
+
+<para>NOTE: As we previously showed, is not necessary to manually run the server since it is automatically started and monitored via software (systemd service) and hardware (watchdog). </para>
+</section>
+</section>
+</chapter>

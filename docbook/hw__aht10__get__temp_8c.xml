@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_hw__aht10__get__temp_8c" xml:lang="en-US">
+<title>hw_aht10_get_temp.c File Reference</title>
+<indexterm><primary>hw_aht10_get_temp.c</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;unistd.h&gt;<?linebreak?>#include &lt;fcntl.h&gt;<?linebreak?>#include &lt;sys/ioctl.h&gt;<?linebreak?>#include &lt;stdio.h&gt;<?linebreak?>#include &lt;stdlib.h&gt;<?linebreak?>#include &lt;pthread.h&gt;<?linebreak?>#include &lt;linux/i2c-dev.h&gt;<?linebreak?></programlisting>Include dependency graph for hw_aht10_get_temp.c:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__get__temp_8c__incl.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>int <link linkend="_hw__aht10__get__temp_8c_1a0510c487d3f24e3ccef0cd345cede814">validate_inputs</link> (int, char **)</para>
+</listitem>
+            <listitem><para>float <link linkend="_hw__aht10__get__temp_8c_1a5f2a7ec4d5a65c3cebddf744da3d4bc2">get_temperature_celsius</link> (char *, int)</para>
+</listitem>
+            <listitem><para>int <link linkend="_hw__aht10__get__temp_8c_1a3c04138a5bfe5d72780bb7e82a18e627">main</link> (int argc, char **argv)</para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_hw__aht10__get__temp_8c_1a5f2a7ec4d5a65c3cebddf744da3d4bc2"/><section>
+    <title>get_temperature_celsius()</title>
+<indexterm><primary>get_temperature_celsius</primary><secondary>hw_aht10_get_temp.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_get_temp.c</primary><secondary>get_temperature_celsius</secondary></indexterm>
+<para><computeroutput>float get_temperature_celsius (char * device_name, int dev_addr)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__get__temp_8c_source_1l00047">47</link> of file <link linkend="_hw__aht10__get__temp_8c_source">hw_aht10_get_temp.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__get__temp_8c_a5f2a7ec4d5a65c3cebddf744da3d4bc2_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__get__temp_8c_1a3c04138a5bfe5d72780bb7e82a18e627"/><section>
+    <title>main()</title>
+<indexterm><primary>main</primary><secondary>hw_aht10_get_temp.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_get_temp.c</primary><secondary>main</secondary></indexterm>
+<para><computeroutput>int main (int argc, char ** argv)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__get__temp_8c_source_1l00012">12</link> of file <link linkend="_hw__aht10__get__temp_8c_source">hw_aht10_get_temp.c</link>.</para>
+Here is the call graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__get__temp_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+<anchor xml:id="_hw__aht10__get__temp_8c_1a0510c487d3f24e3ccef0cd345cede814"/><section>
+    <title>validate_inputs()</title>
+<indexterm><primary>validate_inputs</primary><secondary>hw_aht10_get_temp.c</secondary></indexterm>
+<indexterm><primary>hw_aht10_get_temp.c</primary><secondary>validate_inputs</secondary></indexterm>
+<para><computeroutput>int validate_inputs (int argc, char ** argv)</computeroutput></para><para>
+Definition at line <link linkend="_hw__aht10__get__temp_8c_source_1l00026">26</link> of file <link linkend="_hw__aht10__get__temp_8c_source">hw_aht10_get_temp.c</link>.</para>
+Here is the caller graph for this function:<para>
+    <informalfigure>
+        <mediaobject>
+            <imageobject>
+                <imagedata width="50%" align="center" valign="middle" scalefit="0" fileref="hw__aht10__get__temp_8c_a0510c487d3f24e3ccef0cd345cede814_icgraph.png"></imagedata>
+            </imageobject>
+        </mediaobject>
+    </informalfigure>
+</para>
+</section>
+</section>
+</section>

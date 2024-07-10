@@ -1,0 +1,57 @@
+\doxysection{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c}
+\hypertarget{hw__aht10__temperature__server_8c_source}{}\label{hw__aht10__temperature__server_8c_source}\mbox{\hyperlink{hw__aht10__temperature__server_8c}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00001}00001\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00002}00002\ \textcolor{preprocessor}{\#include\ <stdio.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00003}00003\ \textcolor{preprocessor}{\#include\ <stdlib.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00004}00004\ \textcolor{preprocessor}{\#include\ <pthread.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00005}00005\ \textcolor{preprocessor}{\#include\ <arpa/inet.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00006}00006\ \textcolor{preprocessor}{\#include\ <sys/ioctl.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00007}00007\ \textcolor{preprocessor}{\#include\ <sys/socket.h>}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00008}00008\ \textcolor{preprocessor}{\#include\ "{}\mbox{\hyperlink{hw__aht10__func_8h}{hw\_aht10\_func.h}}"{}}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00009}00009\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00010}\mbox{\hyperlink{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{00010}}\ pthread\_mutex\_t\ \mbox{\hyperlink{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}};\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00011}\mbox{\hyperlink{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}{00011}}\ pthread\_cond\_t\ \mbox{\hyperlink{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}};\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00012}\mbox{\hyperlink{hw__aht10__func_8h_adb6ca112d7f517a7f4f44fbdafe1356f}{00012}}\ \mbox{\hyperlink{struct_sensor_info}{SensorInfo}}\ \mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}};\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00026}\mbox{\hyperlink{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{00026}}\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}}(\textcolor{keywordtype}{int}\ argc,\ \textcolor{keywordtype}{char}\ **argv)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00027}00027\ \ \ \ \ \textcolor{keywordtype}{int}\ socket\_desc,\ client\_sock;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00029}00029\ \ \ \ \ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{short}\ server\_port\ =\ 5000;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00030}00030\ \ \ \ \ \textcolor{keyword}{struct\ }sockaddr\_in\ client\_addr;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00031}00031\ \ \ \ \ socklen\_t\ client\_len;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00032}00032\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00041}00041\ \ \ \ \ sprintf(\mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}.\mbox{\hyperlink{struct_sensor_info_ae6eb8f25aa13f022a3e7e1e1aef61432}{dev\_name}},\textcolor{stringliteral}{"{}/dev/i2c-\/1"{}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00042}00042\ \ \ \ \ \mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}.\mbox{\hyperlink{struct_sensor_info_a686a6aa6451bdca0449db9d921daae26}{dev\_address}}\ =\ 0x38;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00043}00043\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00044}00044\ \ \ \ \ \textcolor{keywordflow}{if}\ (\mbox{\hyperlink{hw__aht10__func_8c_a38378dfed4182a52c7f47bc022cb3bbc}{validate\_inputs}}(argc,\ argv)\ ==\ 1)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00045}00045\ \ \ \ \ \ \ \ \ sprintf(\mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}.\mbox{\hyperlink{struct_sensor_info_ae6eb8f25aa13f022a3e7e1e1aef61432}{dev\_name}},\textcolor{stringliteral}{"{}\%s"{}},\ argv[1]);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00046}00046\ \ \ \ \ \ \ \ \ \mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}}.\mbox{\hyperlink{struct_sensor_info_a686a6aa6451bdca0449db9d921daae26}{dev\_address}}\ =\ (int)strtol(argv[2],\ NULL,\ 16);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00047}00047\ \ \ \ \ \ \ \ \ server\_port\ =\ (int)strtol(argv[3],\ NULL,\ 10);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00048}00048\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00049}00049\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00050}00050\ \ \ \ \ \textcolor{keywordflow}{if}\ ((socket\_desc\ =\ \mbox{\hyperlink{hw__aht10__func_8c_abda8902249ce8fe3237e7afb91554418}{start\_listener}}(server\_port))\ <\ 0)\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00051}00051\ \ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}Unable\ to\ open\ socket\ at\ \%d"{}},\ server\_port);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00052}00052\ \ \ \ \ \ \ \ \ exit(-\/1);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00053}00053\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00060}00060\ \ \ \ \ \textcolor{keywordflow}{while}\ ((client\_sock\ =\ accept(socket\_desc,}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00061}00061\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (\textcolor{keyword}{struct}\ sockaddr\ *)\&client\_addr,}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00062}00062\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (socklen\_t*)\&client\_len)))\ \{}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00063}00063\ \ \ \ \ \ \ \ \ pthread\_t\ thread1,\ thread2,\ thread3;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00064}00064\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00065}00065\ \ \ \ \ \ \ \ \ pthread\_mutex\_init(\&\mbox{\hyperlink{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}},\ NULL);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00066}00066\ \ \ \ \ \ \ \ \ pthread\_cond\_init(\&\mbox{\hyperlink{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}},\ NULL);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00067}00067\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00068}00068\ \ \ \ \ \ \ \ \ pthread\_create(\&thread1,\ NULL,\ \mbox{\hyperlink{hw__aht10__func_8c_a1d3c5e7b97293a261f2d5d65b0381f99}{read\_sensor}},\ \&\mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00069}00069\ \ \ \ \ \ \ \ \ pthread\_create(\&thread2,\ NULL,\ \mbox{\hyperlink{hw__aht10__func_8c_ac9f341db97b3e25e49a864893ba74887}{compute\_temperature}},\ \&\mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\_info}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00070}00070\ \ \ \ \ \ \ \ \ pthread\_create(\&thread3,\ NULL,\ \mbox{\hyperlink{hw__aht10__func_8c_a96682aabf7079f9a0c2f6379775726dd}{connection\_handler}},\ \&client\_sock);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00071}00071\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00072}00072\ \ \ \ \ \ \ \ \ pthread\_join(thread1,\ NULL);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00073}00073\ \ \ \ \ \ \ \ \ pthread\_join(thread2,\ NULL);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00074}00074\ \ \ \ \ \ \ \ \ pthread\_join(thread3,\ NULL);}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00075}00075\ }
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00076}00076\ \ \ \ \ \ \ \ \ pthread\_mutex\_destroy(\&\mbox{\hyperlink{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00077}00077\ \ \ \ \ \ \ \ \ pthread\_cond\_destroy(\&\mbox{\hyperlink{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}});}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00078}00078\ \ \ \ \ \}}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00079}00079\ \ \ \ \ \textcolor{keywordflow}{return}\ 0;}
+\DoxyCodeLine{\Hypertarget{hw__aht10__temperature__server_8c_source_l00080}00080\ \}}
+
+\end{DoxyCode}

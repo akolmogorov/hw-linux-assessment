@@ -1,0 +1,237 @@
+<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
+<HTML><HEAD></HEAD><BODY>
+<OBJECT type="text/site properties">
+<param name="FrameName" value="right">
+</OBJECT>
+<UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a872aaccf6591b02689ba3fed2d47d590"><param name="Name" value="compute_temperature(void *)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#ac9f341db97b3e25e49a864893ba74887"><param name="Name" value="compute_temperature(void *arg)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a1c5104dd7d90660b4395af85d6948134"><param name="Name" value="compute_temperature_celsius(char *)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#ad8be852f92bde19aeb01e6aa0f05b505"><param name="Name" value="compute_temperature_celsius(char *data)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#ad2706378d6eedf7692cb32fcdfb025b0"><param name="Name" value="connection_handler(void *)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a96682aabf7079f9a0c2f6379775726dd"><param name="Name" value="connection_handler(void *socket_desc)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#a3825e3e0922badc8848709cf608821ea"><param name="Name" value="data[6]"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#aac78fc5f81ed7c25e64461b2902e7805"><param name="Name" value="data_ready"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#a686a6aa6451bdca0449db9d921daae26"><param name="Name" value="dev_address"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#ae6eb8f25aa13f022a3e7e1e1aef61432"><param name="Name" value="dev_name[MAX_SIZE]"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c"><param name="Name" value="e_computing"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2"><param name="Name" value="e_gathering"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce"><param name="Name" value="e_ready"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#ada898173c733ebfaf855421c66bb0a15"><param name="Name" value="get_data_from_sensor(char *, int)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a0524ee8ae6eb364f6eb02d07d6d941e5"><param name="Name" value="get_data_from_sensor(char *device_name, int dev_addr)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a5f2a7ec4d5a65c3cebddf744da3d4bc2"><param name="Name" value="get_temperature_celsius(char *, int)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="index.html"><param name="Name" value="Honeywell Linux Assessment Documentation"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#ac9f341db97b3e25e49a864893ba74887"><param name="Name" value="compute_temperature(void *arg)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#ad8be852f92bde19aeb01e6aa0f05b505"><param name="Name" value="compute_temperature_celsius(char *data)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a96682aabf7079f9a0c2f6379775726dd"><param name="Name" value="connection_handler(void *socket_desc)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#aac78fc5f81ed7c25e64461b2902e7805"><param name="Name" value="data_ready"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a0524ee8ae6eb364f6eb02d07d6d941e5"><param name="Name" value="get_data_from_sensor(char *device_name, int dev_addr)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a1d3c5e7b97293a261f2d5d65b0381f99"><param name="Name" value="read_sensor(void *arg)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#aeb7334c25e39bfab2260a227e22446a6"><param name="Name" value="send_message(int client_socket)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#abda8902249ce8fe3237e7afb91554418"><param name="Name" value="start_listener(unsigned short port)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#afc1d28cfbce795d6ea954ebe725241f5"><param name="Name" value="temperature"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a38378dfed4182a52c7f47bc022cb3bbc"><param name="Name" value="validate_inputs(int argc, char **argv)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a872aaccf6591b02689ba3fed2d47d590"><param name="Name" value="compute_temperature(void *)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a1c5104dd7d90660b4395af85d6948134"><param name="Name" value="compute_temperature_celsius(char *)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#ad2706378d6eedf7692cb32fcdfb025b0"><param name="Name" value="connection_handler(void *)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aadaefada05334691bef369b6c62770b4c"><param name="Name" value="e_computing"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aa68efe526a292b3716ba2632fd3485ff2"><param name="Name" value="e_gathering"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527aa82efc4b72f9ab2af7445fb2203b6a3ce"><param name="Name" value="e_ready"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#ada898173c733ebfaf855421c66bb0a15"><param name="Name" value="get_data_from_sensor(char *, int)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0592dba56693fad79136250c11e5a7fe"><param name="Name" value="MAX_SIZE"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#aebd3973c0794cbef6d9d36ab34005908"><param name="Name" value="read_sensor(void *)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a1ee89972b9c42006ee4bba11ed40baf6"><param name="Name" value="send_message(int)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="sensor_info"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a813631c5173610b0390570cd076fd191"><param name="Name" value="start_listener(unsigned short)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527a"><param name="Name" value="threads_states"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="validate_inputs(int, char **)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html"><param name="Name" value="hw_aht10_get_temp.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a5f2a7ec4d5a65c3cebddf744da3d4bc2"><param name="Name" value="get_temperature_celsius(char *, int)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html"><param name="Name" value="hw_aht10_get_temp.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="main(int argc, char **argv)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html"><param name="Name" value="hw_aht10_get_temp.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="validate_inputs(int, char **)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a0a1433271fddfed84bc959ae6c202e5a"><param name="Name" value="cond"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="main(int argc, char **argv)"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="sensor_info"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="main(int argc, char **argv)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="hw_aht10_get_temp.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="main(int argc, char **argv)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a3c04138a5bfe5d72780bb7e82a18e627"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0592dba56693fad79136250c11e5a7fe"><param name="Name" value="MAX_SIZE"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="hw_aht10_func.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="mutex"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#a4acff8232e4aec9cd5c6dc200ac55ef3"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#aebd3973c0794cbef6d9d36ab34005908"><param name="Name" value="read_sensor(void *)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a1d3c5e7b97293a261f2d5d65b0381f99"><param name="Name" value="read_sensor(void *arg)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#aeb7334c25e39bfab2260a227e22446a6"><param name="Name" value="send_message(int client_socket)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a1ee89972b9c42006ee4bba11ed40baf6"><param name="Name" value="send_message(int)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="sensor_info"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="sensor_info"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__temperature__server_8c.html#adb6ca112d7f517a7f4f44fbdafe1356f"><param name="Name" value="hw_aht10_temperature_server.c"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html"><param name="Name" value="SensorInfo"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html"><param name="Name" value="SensorInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#a3825e3e0922badc8848709cf608821ea"><param name="Name" value="data[6]"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html"><param name="Name" value="SensorInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#a686a6aa6451bdca0449db9d921daae26"><param name="Name" value="dev_address"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html"><param name="Name" value="SensorInfo"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="struct_sensor_info.html#ae6eb8f25aa13f022a3e7e1e1aef61432"><param name="Name" value="dev_name[MAX_SIZE]"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#abda8902249ce8fe3237e7afb91554418"><param name="Name" value="start_listener(unsigned short port)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a813631c5173610b0390570cd076fd191"><param name="Name" value="start_listener(unsigned short)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#afc1d28cfbce795d6ea954ebe725241f5"><param name="Name" value="temperature"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a8b28d3dc9e2ffd1466790ec8b8b7527a"><param name="Name" value="threads_states"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8c.html#a38378dfed4182a52c7f47bc022cb3bbc"><param name="Name" value="validate_inputs(int argc, char **argv)"></OBJECT>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="validate_inputs(int, char **)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__func_8h.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="hw_aht10_func.h"></OBJECT>
+  </UL>
+  <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="validate_inputs(int, char **)"></OBJECT>
+  <UL>
+    <LI><OBJECT type="text/sitemap"><param name="Local" value="hw__aht10__get__temp_8c.html#a0510c487d3f24e3ccef0cd345cede814"><param name="Name" value="hw_aht10_get_temp.c"></OBJECT>
+  </UL>
+</UL>
+</BODY>
+</HTML>

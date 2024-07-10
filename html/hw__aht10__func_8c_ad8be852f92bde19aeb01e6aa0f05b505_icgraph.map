@@ -1,0 +1,7 @@
+<map id="compute_temperature_celsius" name="compute_temperature_celsius">
+<area shape="rect" id="Node000001" title=" " alt="" coords="298,5,445,48"/>
+<area shape="rect" id="Node000002" href="$hw__aht10__func_8c.html#ac9f341db97b3e25e49a864893ba74887" title=" " alt="" coords="103,13,250,40"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="282,29,251,29,251,24,282,24"/>
+<area shape="rect" id="Node000003" href="$hw__aht10__temperature__server_8c.html#a3c04138a5bfe5d72780bb7e82a18e627" title="In this section the TCP server binds connections with clients using threads for: ." alt="" coords="5,13,55,40"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,29,55,29,55,24,87,24"/>
+</map>

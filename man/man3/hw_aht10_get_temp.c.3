@@ -1,0 +1,53 @@
+.TH "hw_aht10_get_temp.c" 3 "Version Sr Advanced Embedded Engr." "Honeywell Linux Assessment" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+hw_aht10_get_temp.c
+.SH SYNOPSIS
+.br
+.PP
+\fR#include <unistd\&.h>\fP
+.br
+\fR#include <fcntl\&.h>\fP
+.br
+\fR#include <sys/ioctl\&.h>\fP
+.br
+\fR#include <stdio\&.h>\fP
+.br
+\fR#include <stdlib\&.h>\fP
+.br
+\fR#include <pthread\&.h>\fP
+.br
+\fR#include <linux/i2c\-dev\&.h>\fP
+.br
+
+.SS "Functions"
+
+.in +1c
+.ti -1c
+.RI "int \fBvalidate_inputs\fP (int, char **)"
+.br
+.ti -1c
+.RI "float \fBget_temperature_celsius\fP (char *, int)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SH "Function Documentation"
+.PP 
+.SS "float get_temperature_celsius (char * device_name, int dev_addr)"
+
+.PP
+Definition at line \fB47\fP of file \fBhw_aht10_get_temp\&.c\fP\&.
+.SS "int main (int argc, char ** argv)"
+
+.PP
+Definition at line \fB12\fP of file \fBhw_aht10_get_temp\&.c\fP\&.
+.SS "int validate_inputs (int argc, char ** argv)"
+
+.PP
+Definition at line \fB26\fP of file \fBhw_aht10_get_temp\&.c\fP\&.
+.SH "Author"
+.PP 
+Generated automatically by Doxygen for Honeywell Linux Assessment from the source code\&.

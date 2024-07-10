@@ -1,0 +1,123 @@
+\doxysection{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c File Reference}
+\hypertarget{hw__aht10__temperature__server_8c}{}\label{hw__aht10__temperature__server_8c}\index{hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}}
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$pthread.\+h$>$}\newline
+{\ttfamily \#include $<$arpa/inet.\+h$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$sys/socket.\+h$>$}\newline
+{\ttfamily \#include "{}hw\+\_\+aht10\+\_\+func.\+h"{}}\newline
+Include dependency graph for hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__temperature__server_8c__incl}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}argv)
+\begin{DoxyCompactList}\small\item\em In this section the TCP server binds connections with clients using threads for\+:~\newline
+. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+pthread\+\_\+mutex\+\_\+t \mbox{\hyperlink{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}{mutex}}
+\item 
+pthread\+\_\+cond\+\_\+t \mbox{\hyperlink{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}{cond}}
+\item 
+\mbox{\hyperlink{struct_sensor_info}{Sensor\+Info}} \mbox{\hyperlink{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}{sensor\+\_\+info}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Function Documentation}
+\Hypertarget{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627}\index{hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}!main@{main}}
+\index{main@{main}!hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily \label{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627} 
+int main (\begin{DoxyParamCaption}\item[{int}]{argc}{, }\item[{char \texorpdfstring{$\ast$}{*}\texorpdfstring{$\ast$}{*}}]{argv}{}\end{DoxyParamCaption})}
+
+
+
+In this section the TCP server binds connections with clients using threads for\+:~\newline
+. 
+
+
+\begin{DoxyItemize}
+\item 1) Getting data from AHT10 sensor~\newline
+
+\item 2) Computing the current temperature, and ~\newline
+
+\item 3) Attending new temperature requests via TCP.
+\end{DoxyItemize}
+
+
+\begin{DoxyParams}{Parameters}
+{\em argc} & Argument count \\
+\hline
+{\em argv} & Argument vector \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Exit status 
+\end{DoxyReturn}
+TCP port is 5000 by default
+
+Default values for I2C hardware\+:
+\begin{DoxyItemize}
+\item The device name by default is the file descriptor we found at /dev/i2c-\/1 and,
+\item The device address for the AHT10 sensor is 0x38.~\newline
+~\newline
+
+\end{DoxyItemize}
+
+NOTE\+: These values can be modified according to the connected sensor and the board when executing the program via the parameter {\itshape argv}.
+
+Main loop\+:
+\begin{DoxyItemize}
+\item Once a client connection is accepted, three threads are created as mentioned above including the mutex and cond sections for {\bfseries{avoiding race conditions and/or deadlocks}}.
+\end{DoxyItemize}
+
+Definition at line \mbox{\hyperlink{hw__aht10__temperature__server_8c_source_l00026}{26}} of file \mbox{\hyperlink{hw__aht10__temperature__server_8c_source}{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c}}.
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{hw__aht10__temperature__server_8c_a3c04138a5bfe5d72780bb7e82a18e627_cgraph}
+\end{center}
+\end{figure}
+
+
+\doxysubsection{Variable Documentation}
+\Hypertarget{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a}\index{hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}!cond@{cond}}
+\index{cond@{cond}!hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}}
+\doxysubsubsection{\texorpdfstring{cond}{cond}}
+{\footnotesize\ttfamily \label{hw__aht10__temperature__server_8c_a0a1433271fddfed84bc959ae6c202e5a} 
+pthread\+\_\+cond\+\_\+t cond}
+
+Condition variable for thread synchronization (prevents race conditions) 
+
+Definition at line \mbox{\hyperlink{hw__aht10__temperature__server_8c_source_l00011}{11}} of file \mbox{\hyperlink{hw__aht10__temperature__server_8c_source}{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c}}.
+
+\Hypertarget{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3}\index{hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}!mutex@{mutex}}
+\index{mutex@{mutex}!hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}}
+\doxysubsubsection{\texorpdfstring{mutex}{mutex}}
+{\footnotesize\ttfamily \label{hw__aht10__temperature__server_8c_a4acff8232e4aec9cd5c6dc200ac55ef3} 
+pthread\+\_\+mutex\+\_\+t mutex}
+
+Mutex for thread synchronization (prevents deadlocks) 
+
+Definition at line \mbox{\hyperlink{hw__aht10__temperature__server_8c_source_l00010}{10}} of file \mbox{\hyperlink{hw__aht10__temperature__server_8c_source}{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c}}.
+
+\Hypertarget{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f}\index{hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}!sensor\_info@{sensor\_info}}
+\index{sensor\_info@{sensor\_info}!hw\_aht10\_temperature\_server.c@{hw\_aht10\_temperature\_server.c}}
+\doxysubsubsection{\texorpdfstring{sensor\_info}{sensor\_info}}
+{\footnotesize\ttfamily \label{hw__aht10__temperature__server_8c_adb6ca112d7f517a7f4f44fbdafe1356f} 
+\mbox{\hyperlink{struct_sensor_info}{Sensor\+Info}} sensor\+\_\+info}
+
+Sensor information structure 
+
+Definition at line \mbox{\hyperlink{hw__aht10__temperature__server_8c_source_l00012}{12}} of file \mbox{\hyperlink{hw__aht10__temperature__server_8c_source}{hw\+\_\+aht10\+\_\+temperature\+\_\+server.\+c}}.
+
